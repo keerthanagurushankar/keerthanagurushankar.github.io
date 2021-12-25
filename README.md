@@ -1,3 +1,3 @@
-# Hi, I'm Keerthana!
+# Hi there!
 
-This is my website. 
+I just created this website. It doesn't do very much yet. 
