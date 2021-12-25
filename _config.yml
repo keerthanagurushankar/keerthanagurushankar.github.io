@@ -1,5 +1,3 @@
 theme: jekyll-theme-minimal
 title: Keerthana Gurushankar
-github:
-  zip_url: keerthanagurushankar.github.io
-  another_url: another value
+logo: "/my_picture.jpg"
