@@ -2,4 +2,5 @@ theme: jekyll-theme-minimal
 title: Keerthana Gurushankar
 logo: "/my_picture.jpg"
 github:
-  resume_url: https://raw.githubusercontent.com/keerthanagurushankar/keerthanagurushankar.github.io/main/Keerthana%20Gurushankar%20-%20Resume%201-23.pdf
+  resume_url: "/resume-1-23.pdf"
+
