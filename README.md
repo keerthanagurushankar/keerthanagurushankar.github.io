@@ -6,18 +6,18 @@ In the past, I was a math undergrad, also at CMU! I have worked in Information T
 
 ## Publications
 
-**What’s in a Name? Linear Temporal Logic Literally Represents Time Lines**
+**What’s in a Name? Linear Temporal Logic Literally Represents Time Lines**  
     Runming Li*, Keerthana Gurushankar*, Marijn J.H. Heule, Kristin Y. Rozier
     Jan 2023, (Under review) Journal of Computer Languages Issue on Foundations and Practice of Visual Modeling.
 
-**Capturing and Interpreting Unique Information**
+**Capturing and Interpreting Unique Information**  
 	Praveen Venkatesh, Gabriel Schamberg, Keerthana Gurushankar
 	Jan 2023, (Under review) IEEE International Symposium on Information Theory 2023.
 
-**Extracting Unique Information through Markov Relations**
+**Extracting Unique Information through Markov Relations**  
 	Keerthana Gurushankar, Praveen Venkatesh, Pulkit Grover
 	Jul 2022, Allerton Conference on Communication, Control and Computing. [Preprint](https://arxiv.org/abs/2210.14789)
 
-**Sharp bounds on p-norms for sums of independent uniform random variables, 0<p<1**
+**Sharp bounds on p-norms for sums of independent uniform random variables, 0<p<1**  
 	Giorgos Chasapis, Keerthana Gurushankar, Tomasz Tkocz
 	May 2021, Journal d'Analyse Mathématique. [Preprint](https://arxiv.org/abs/2105.14079)
