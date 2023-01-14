@@ -7,7 +7,7 @@ In the past, I was a math undergrad, also at CMU! I have worked in Information T
 ## Publications
 
 **What’s in a Name? Linear Temporal Logic Literally Represents Time Lines**  
-    Runming Li*, Keerthana Gurushankar*, Marijn J.H. Heule, Kristin Y. Rozier
+    Runming Li\*, Keerthana Gurushankar\*, Marijn J.H. Heule, Kristin Y. Rozier
     Jan 2023, (Under review) Journal of Computer Languages Issue on Foundations and Practice of Visual Modeling.
 
 **Capturing and Interpreting Unique Information**  
