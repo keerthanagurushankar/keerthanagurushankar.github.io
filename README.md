@@ -12,7 +12,7 @@ In the past, I was a math undergrad, also at CMU! I did some research in Informa
 
 **Capturing and Interpreting Unique Information**  
 	Praveen Venkatesh, Gabriel Schamberg, Keerthana Gurushankar  
-	Jan 2023, (Under review) IEEE International Symposium on Information Theory 2023.
+	Jan 2023, (Under review) IEEE International Symposium on Information Theory 2023. [Preprint] (https://arxiv.org/abs/2302.11873)
 
 **Extracting Unique Information through Markov Relations**  
 	Keerthana Gurushankar, Praveen Venkatesh, Pulkit Grover  
