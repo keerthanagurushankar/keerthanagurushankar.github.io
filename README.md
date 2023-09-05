@@ -11,7 +11,7 @@ In the past, I was a math undergrad, also at CMU! I did some research in Informa
     	Jul 2023, IEEE Working Conference on Software Visualization (VISSOFT 2023) (\*equal contribution)
 
 **Capturing and Interpreting Unique Information**  
-	Praveen Venkatesh, Gabriel Schamberg, Keerthana Gurushankar  
+	Praveen Venkatesh, Keerthana Gurushankar, Gabriel Schamberg
 	Jan 2023, IEEE International Symposium on Information Theory 2023. [Preprint](https://arxiv.org/abs/2302.11873)
 
 **Extracting Unique Information through Markov Relations**  
