@@ -7,8 +7,8 @@ In the past, I was a math undergrad, also at CMU! I really like research breadth
 ## Publications
 
 **What’s in a Name? Linear Temporal Logic Literally Represents Time Lines**  
-    	Runming Li\*, Keerthana Gurushankar\*, Marijn J.H. Heule, Kristin Y. Rozier  
-    	Jul 2023, IEEE Working Conference on Software Visualization (VISSOFT 2023) (\*equal contribution)
+    	Runming Li\*, Keerthana Gurushankar\*, Marijn J.H. Heule, Kristin Y. Rozier
+    	Jul 2023, IEEE Working Conference on Software Visualization (VISSOFT 2023) (\*equal contribution) [Preprint](https://www.andrew.cmu.edu/user/runmingl/paper/ltl.pdf)[Artifact](https://zenodo.org/record/8244783)
 
 **Capturing and Interpreting Unique Information**  
 	Praveen Venkatesh, Keerthana Gurushankar, Gabriel Schamberg
