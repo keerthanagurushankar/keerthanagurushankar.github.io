@@ -1,8 +1,8 @@
 ## About Me
 
-I'm a Computer Science PhD student at Carnegie Mellon University, advised by [Nihar Shah](https://www.cs.cmu.edu/~nihars/). I use data-driven approaches to study human evaluation systems, especially peer review.
+I'm a Computer Science PhD student at Carnegie Mellon University, advised by [Nihar Shah](https://www.cs.cmu.edu/~nihars/). My current research focuses on AI Algorithm design for socio-technical systems. 
 
-In the past, I was a math undergrad, also at CMU! I did some research in Information Theory, Neuroscience and recently dabbled in Programming Languages.
+In the past, I was a math undergrad, also at CMU! I really like research breadth and exploration. In the past, I have done some research in Information Theory, Neuroscience and Programming Languages.
 
 ## Publications
 
