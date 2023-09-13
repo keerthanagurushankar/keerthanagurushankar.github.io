@@ -8,7 +8,7 @@ In the past, I was a math undergrad, also at CMU! I really like research breadth
 
 **What’s in a Name? Linear Temporal Logic Literally Represents Time Lines**  
     	Runming Li\*, Keerthana Gurushankar\*, Marijn J.H. Heule, Kristin Y. Rozier
-    	Jul 2023, IEEE Working Conference on Software Visualization (VISSOFT 2023) (\*equal contribution) [Preprint](https://www.andrew.cmu.edu/user/runmingl/paper/ltl.pdf)[Artifact](https://zenodo.org/record/8244783)
+    	Jul 2023, IEEE Working Conference on Software Visualization (VISSOFT 2023) (\*equal contribution) [Preprint](https://www.andrew.cmu.edu/user/runmingl/paper/ltl.pdf) [Artifact](https://zenodo.org/record/8244783)
 
 **Capturing and Interpreting Unique Information**  
 	Praveen Venkatesh, Keerthana Gurushankar, Gabriel Schamberg
@@ -21,3 +21,7 @@ In the past, I was a math undergrad, also at CMU! I really like research breadth
 **Sharp bounds on p-norms for sums of independent uniform random variables, 0<p<1**  
 	Giorgos Chasapis, Keerthana Gurushankar, Tomasz Tkocz  
 	May 2021, Journal d'Analyse Mathématique. [Preprint](https://arxiv.org/abs/2105.14079)
+
+**A minimal intervention definition of reverse engineering a neural circuit**
+    	Keerthana Gurushankar, Pulkit Grover [Preprint](https://arxiv.org/abs/2110.00889)
+    
