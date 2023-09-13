@@ -23,5 +23,5 @@ In the past, I was a math undergrad, also at CMU! I really like research breadth
 	May 2021, Journal d'Analyse Mathématique. [Preprint](https://arxiv.org/abs/2105.14079)
 
 **A minimal intervention definition of reverse engineering a neural circuit**
-    	Keerthana Gurushankar, Pulkit Grover [Preprint](https://arxiv.org/abs/2110.00889)
+ 	Keerthana Gurushankar, Pulkit Grover [Preprint](https://arxiv.org/abs/2110.00889)
     
