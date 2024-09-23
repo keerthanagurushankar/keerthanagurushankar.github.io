@@ -1,16 +1,12 @@
 ## About Me
 
-I'm a Computer Science PhD student at Carnegie Mellon University, advised by [Mor Harchol-Balter](https://www.cs.cmu.edu/~harchol/). My current research focuses on scheduling jobs with deadlines.
+I'm a Computer Science PhD student at Carnegie Mellon University, advised by [Mor Harchol-Balter](https://www.cs.cmu.edu/~harchol/). My current research focuses on the performance of scheduling policies with age-based priority.
 
 {% comment %}
    In the past, I was a math undergrad, also at CMU! I really like research breadth and exploration. In the past, I have done some research in Information Theory, Neuroscience and Programming Languages.
 {% endcomment %}
 
 ## Publications
-
-**A minimal intervention definition of reverse engineering a neural circuit**
- 	Keerthana Gurushankar, Pulkit Grover   
-	May 2024, ISIT 2024 Workshop on Information Theory in Neuroscience and Neuroengineering [Preprint](https://arxiv.org/abs/2110.00889)
 
 **What’s in a Name? Linear Temporal Logic Literally Represents Time Lines**  
     	Runming Li\*, Keerthana Gurushankar\*, Marijn J.H. Heule, Kristin Y. Rozier  
@@ -27,5 +23,9 @@ I'm a Computer Science PhD student at Carnegie Mellon University, advised by [Mo
 **Sharp bounds on p-norms for sums of independent uniform random variables, 0<p<1**  
 	Giorgos Chasapis, Keerthana Gurushankar, Tomasz Tkocz  
 	May 2021, Journal d'Analyse Mathématique. [Preprint](https://arxiv.org/abs/2105.14079)
+
+**A minimal intervention definition of reverse engineering a neural circuit**  
+ 	Keerthana Gurushankar, Pulkit Grover   
+	May 2024, ISIT 2024 Workshop on Information Theory in Neuroscience and Neuroengineering [Preprint](https://arxiv.org/abs/2110.00889)
 
     
