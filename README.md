@@ -2,7 +2,9 @@
 
 I'm a Computer Science PhD student at Carnegie Mellon University, advised by [Mor Harchol-Balter](https://www.cs.cmu.edu/~harchol/). My current research focuses on scheduling jobs with deadlines.
 
-<> (In the past, I was a math undergrad, also at CMU! I really like research breadth and exploration. In the past, I have done some research in Information Theory, Neuroscience and Programming Languages.)
+{% comment %}
+   In the past, I was a math undergrad, also at CMU! I really like research breadth and exploration. In the past, I have done some research in Information Theory, Neuroscience and Programming Languages.
+{% endcomment %}
 
 ## Publications
 
