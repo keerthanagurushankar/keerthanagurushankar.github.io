@@ -10,7 +10,7 @@ I'm a Computer Science PhD student at Carnegie Mellon University, advised by [Mo
 
 **Latency Guarantees for Caching With Delayed Hits**  
     Keerthana Gurushankar, Noah G. Singer, Bernardo Subercaseaux  
-    Jul 2024, IEEE International Conference on Computer Communications (INFOCOM) 2025.
+    Jul 2024, IEEE International Conference on Computer Communications (INFOCOM) 2025. [Preprint](https://arxiv.org/abs/2501.16535)
 
 **A minimal intervention definition of reverse engineering a neural circuit**  
  	Keerthana Gurushankar, Pulkit Grover  
