@@ -1,6 +1,20 @@
-theme: jekyll-theme-minimal
 title: Keerthana Gurushankar
 logo: "/my_picture.png"
 github:
   resume_url: "/resume.pdf"
+
+theme: jekyll-text-theme
+text_color_theme: dark   # dark mode
+
+# Required TeXt config
+plugins:
+  - jekyll-remote-theme
+  - jekyll-feed
+  - jekyll-seo-tag
+
+markdown: kramdown
+highlighter: rouge
+
+paginate: 10
+paginate_path: "/page:num/"
 

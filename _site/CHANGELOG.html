@@ -1,0 +1,925 @@
+<!DOCTYPE html><html lang="en">
+  <head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"><title>Change Log - Keerthana Gurushankar</title>
+
+<meta name="description" content="">
+<link rel="canonical" href="http://localhost:4001/CHANGELOG.html"><link rel="alternate" type="application/rss+xml" title="Keerthana Gurushankar" href="/feed.xml"><!-- start favicons snippet, use https://realfavicongenerator.net/ --><link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png"><link rel="manifest" href="/assets/site.webmanifest"><link rel="mask-icon" href="/assets/safari-pinned-tab.svg" color="#fc4d50"><link rel="shortcut icon" href="/assets/favicon.ico">
+
+<meta name="msapplication-TileColor" content="#ffc40d"><meta name="msapplication-config" content="/assets/browserconfig.xml">
+
+<meta name="theme-color" content="#ffffff">
+<!-- end favicons snippet --><link rel="stylesheet" href="/assets/css/main.css"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" ><!-- start custom head snippets -->
+
+<!-- end custom head snippets -->
+<script>(function() {
+  window.isArray = function(val) {
+    return Object.prototype.toString.call(val) === '[object Array]';
+  };
+  window.isString = function(val) {
+    return typeof val === 'string';
+  };
+
+  window.hasEvent = function(event) {
+    return 'on'.concat(event) in window.document;
+  };
+
+  window.isOverallScroller = function(node) {
+    return node === document.documentElement || node === document.body || node === window;
+  };
+
+  window.isFormElement = function(node) {
+    var tagName = node.tagName;
+    return tagName === 'INPUT' || tagName === 'SELECT' || tagName === 'TEXTAREA';
+  };
+
+  window.pageLoad = (function () {
+    var loaded = false, cbs = [];
+    window.addEventListener('load', function () {
+      var i;
+      loaded = true;
+      if (cbs.length > 0) {
+        for (i = 0; i < cbs.length; i++) {
+          cbs[i]();
+        }
+      }
+    });
+    return {
+      then: function(cb) {
+        cb && (loaded ? cb() : (cbs.push(cb)));
+      }
+    };
+  })();
+})();
+(function() {
+  window.throttle = function(func, wait) {
+    var args, result, thisArg, timeoutId, lastCalled = 0;
+
+    function trailingCall() {
+      lastCalled = new Date;
+      timeoutId = null;
+      result = func.apply(thisArg, args);
+    }
+    return function() {
+      var now = new Date,
+        remaining = wait - (now - lastCalled);
+
+      args = arguments;
+      thisArg = this;
+
+      if (remaining <= 0) {
+        clearTimeout(timeoutId);
+        timeoutId = null;
+        lastCalled = now;
+        result = func.apply(thisArg, args);
+      } else if (!timeoutId) {
+        timeoutId = setTimeout(trailingCall, remaining);
+      }
+      return result;
+    };
+  };
+})();
+(function() {
+  var Set = (function() {
+    var add = function(item) {
+      var i, data = this._data;
+      for (i = 0; i < data.length; i++) {
+        if (data[i] === item) {
+          return;
+        }
+      }
+      this.size ++;
+      data.push(item);
+      return data;
+    };
+
+    var Set = function(data) {
+      this.size = 0;
+      this._data = [];
+      var i;
+      if (data.length > 0) {
+        for (i = 0; i < data.length; i++) {
+          add.call(this, data[i]);
+        }
+      }
+    };
+    Set.prototype.add = add;
+    Set.prototype.get = function(index) { return this._data[index]; };
+    Set.prototype.has = function(item) {
+      var i, data = this._data;
+      for (i = 0; i < data.length; i++) {
+        if (this.get(i) === item) {
+          return true;
+        }
+      }
+      return false;
+    };
+    Set.prototype.is = function(map) {
+      if (map._data.length !== this._data.length) { return false; }
+      var i, j, flag, tData = this._data, mData = map._data;
+      for (i = 0; i < tData.length; i++) {
+        for (flag = false, j = 0; j < mData.length; j++) {
+          if (tData[i] === mData[j]) {
+            flag = true;
+            break;
+          }
+        }
+        if (!flag) { return false; }
+      }
+      return true;
+    };
+    Set.prototype.values = function() {
+      return this._data;
+    };
+    return Set;
+  })();
+
+  window.Lazyload = (function(doc) {
+    var queue = {js: [], css: []}, sources = {js: {}, css: {}}, context = this;
+    var createNode = function(name, attrs) {
+      var node = doc.createElement(name), attr;
+      for (attr in attrs) {
+        if (attrs.hasOwnProperty(attr)) {
+          node.setAttribute(attr, attrs[attr]);
+        }
+      }
+      return node;
+    };
+    var end = function(type, url) {
+      var s, q, qi, cbs, i, j, cur, val, flag;
+      if (type === 'js' || type ==='css') {
+        s = sources[type], q = queue[type];
+        s[url] = true;
+        for (i = 0; i < q.length; i++) {
+          cur = q[i];
+          if (cur.urls.has(url)) {
+            qi = cur, val = qi.urls.values();
+            qi && (cbs = qi.callbacks);
+            for (flag = true, j = 0; j < val.length; j++) {
+              cur = val[j];
+              if (!s[cur]) {
+                flag = false;
+              }
+            }
+            if (flag && cbs && cbs.length > 0) {
+              for (j = 0; j < cbs.length; j++) {
+                cbs[j].call(context);
+              }
+              qi.load = true;
+            }
+          }
+        }
+      }
+    };
+    var load = function(type, urls, callback) {
+      var s, q, qi, node, i, cur,
+        _urls = typeof urls === 'string' ? new Set([urls]) : new Set(urls), val, url;
+      if (type === 'js' || type ==='css') {
+        s = sources[type], q = queue[type];
+        for (i = 0; i < q.length; i++) {
+          cur = q[i];
+          if (_urls.is(cur.urls)) {
+            qi = cur;
+            break;
+          }
+        }
+        val = _urls.values();
+        if (qi) {
+          callback && (qi.load || qi.callbacks.push(callback));
+          callback && (qi.load && callback());
+        } else {
+          q.push({
+            urls: _urls,
+            callbacks: callback ? [callback] : [],
+            load: false
+          });
+          for (i = 0; i < val.length; i++) {
+            node = null, url = val[i];
+            if (s[url] === undefined) {
+              (type === 'js' ) && (node = createNode('script', { src: url }));
+              (type === 'css') && (node = createNode('link', { rel: 'stylesheet', href: url }));
+              if (node) {
+                node.onload = (function(type, url) {
+                  return function() {
+                    end(type, url);
+                  };
+                })(type, url);
+                (doc.head || doc.body).appendChild(node);
+                s[url] = false;
+              }
+            }
+          }
+        }
+      }
+    };
+    return {
+      js: function(url, callback) {
+        load('js', url, callback);
+      },
+      css: function(url, callback) {
+        load('css', url, callback);
+      }
+    };
+  })(this.document);
+})();
+</script><script>
+  (function() {
+    var TEXT_VARIABLES = {
+      version: '2.2.6',
+      sources: {
+        font_awesome: 'https://use.fontawesome.com/releases/v5.0.13/css/all.css',
+        jquery: 'https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js',
+        leancloud_js_sdk: '//cdn.jsdelivr.net/npm/leancloud-storage@3.13.2/dist/av-min.js',
+        chart: 'https://cdn.bootcss.com/Chart.js/2.7.2/Chart.bundle.min.js',
+        gitalk: {
+          js: 'https://cdn.bootcss.com/gitalk/1.2.2/gitalk.min.js',
+          css: 'https://cdn.bootcss.com/gitalk/1.2.2/gitalk.min.css'
+        },
+        valine: 'https://unpkg.com/valine/dist/Valine.min.js',
+        mathjax: 'https://cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML',
+        mermaid: 'https://cdn.bootcss.com/mermaid/8.0.0-rc.8/mermaid.min.js'
+      },
+      site: {
+        toc: {
+          selectors: 'h1,h2,h3'
+        }
+      },
+      paths: {
+        search_js: '/assets/search.js'
+      }
+    };
+    window.TEXT_VARIABLES = TEXT_VARIABLES;
+  })();
+</script>
+</head>
+  <body>
+    <div class="root" data-is-touch="false">
+      <div class="layout--page js-page-root"><div class="page__main js-page-main page__viewport cell cell--auto">
+
+      <div class="page__main-inner"><div class="page__header d-print-none"><header class="header"><div class="main">
+      <div class="header__title">
+        <div class="header__brand"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="24px" height="24px" viewBox="0 0 24 24">
+<style type="text/css">
+	.st0{fill:#515151;}
+</style>
+<path class="st0" d="M1.7,22.3c5.7-5.7,11.3-5.7,17,0c3.3-3.3,3.5-5.3,0.8-6c2.7,0.7,3.5-1.1,2.3-5.6s-3.3-5.2-6.3-2.1
+	c3-3,2.3-5.2-2.1-6.3S7,1.8,7.7,4.6C7,1.8,5,2.1,1.7,5.3C7.3,11,7.3,16.7,1.7,22.3"/>
+</svg>
+<a title="" href="/">Keerthana Gurushankar</a></div></div><nav class="navigation">
+        <ul><li class="navigation__item"><a href="/">About</a></li><li class="navigation__item"><a href="/publications/">Publications</a></li><li class="navigation__item"><a href="/blog/">Blog</a></li><li class="navigation__item"><a href="/cv.pdf">CV</a></li></ul>
+      </nav></div>
+  </header>
+</div><div class="page__content"><div class ="main"><div class="grid grid--reverse">
+
+              <div class="col-aside d-print-none js-col-aside"></div>
+
+              <div class="col-main cell cell--auto"><!-- start custom main top snippet -->
+
+<!-- end custom main top snippet -->
+<article itemscope itemtype="http://schema.org/WebPage"><div class="article__header"><header><h1>Change Log</h1></header></div><meta itemprop="headline" content="Change Log"><div class="js-article-content"><h1 id="change-log">Change Log</h1>
+
+<h2 id="226-2019-02-02">2.2.6 (2019-02-02)</h2>
+
+<h3 id="enhancements">Enhancements</h3>
+
+<ul>
+  <li>Add <a href="https://commitlint.js.org/">commit linter</a></li>
+  <li>Add <a href="https://editorconfig.org/">EditorConfig</a></li>
+  <li>Update npm packages</li>
+</ul>
+
+<h3 id="bug-fixes">Bug Fixes</h3>
+
+<ul>
+  <li>Fix some spelling errors in documents</li>
+  <li>Fix some errors in configs</li>
+</ul>
+
+<h2 id="225-2019-12-08">2.2.5 (2019-12-08)</h2>
+
+<h3 id="enhancements-1">Enhancements</h3>
+
+<ul>
+  <li>Update to Jekyll 4.0</li>
+  <li>Add custom snippets for main/top, main/bottom, article/top,  article/bottom, etc</li>
+  <li>Add Medium, Zhihu social icons</li>
+  <li>Add Google Custom Search support</li>
+  <li>Add Korean locale (@ssosso)</li>
+  <li>Add French locale (@ctrl-q)</li>
+  <li>Add Docker support</li>
+</ul>
+
+<h2 id="224-2018-12-10">2.2.4 (2018-12-10)</h2>
+
+<h3 id="enhancements-2">Enhancements</h3>
+
+<ul>
+  <li>Swiper component support mouse move</li>
+  <li>Add lightbox (modal image gallery)</li>
+  <li>Add Valine comment system (@Lloyar)</li>
+</ul>
+
+<h3 id="bug-fixes-1">Bug Fixes</h3>
+
+<ul>
+  <li>Fix some spelling errors in documents (@Krinkle)</li>
+</ul>
+
+<h2 id="223-2018-11-11">2.2.3 (2018-11-11)</h2>
+
+<h3 id="enhancements-3">Enhancements</h3>
+
+<ul>
+  <li>Add Swiper component</li>
+  <li>Add AddThis sharing service (@liao961120)</li>
+  <li>Add extensions for demos (CodePen)</li>
+  <li>Add special stylesheets for print</li>
+</ul>
+
+<h2 id="222-2018-10-21">2.2.2 (2018-10-21)</h2>
+
+<h3 id="enhancements-4">Enhancements</h3>
+
+<ul>
+  <li>Add extensions for audios (SoundCloud, Netease Cloud Music), videos (YouTube, TED, bilibili) and slide(SlideShare)</li>
+  <li>Add AddToAny sharing service</li>
+</ul>
+
+<h2 id="221-2018-10-02">2.2.1 (2018-10-02)</h2>
+
+<h3 id="enhancements-5">Enhancements</h3>
+
+<ul>
+  <li>Update screenshots</li>
+  <li>Landing layout <code class="language-plaintext highlighter-rouge">data.sections</code> item’s <code class="language-plaintext highlighter-rouge">image</code> add <code class="language-plaintext highlighter-rouge">full_width</code> setting</li>
+  <li>Remove <code class="language-plaintext highlighter-rouge">header.type</code> and add <code class="language-plaintext highlighter-rouge">header.background</code> setting</li>
+  <li>Page layout sidebar use document scroll when viewport width &lt; 1024px, this enhance the user experience on a phone or a pad</li>
+  <li>Telegram social icon (@WangQiru)</li>
+  <li>Search panel use dark background</li>
+</ul>
+
+<h2 id="220-2018-09-16">2.2.0 (2018-09-16)</h2>
+
+<h3 id="enhancements-6">Enhancements</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">article_header</code> setting for page layout</li>
+  <li>Articles layout</li>
+  <li>New grid system</li>
+  <li>Image, card, item and hero components</li>
+  <li>Tag additional style</li>
+  <li>chart.js update to 2.7.2, mathjax update to 2.7.4 and mermaid update to 8.0.0-rc.8</li>
+</ul>
+
+<h3 id="bug-fixes-2">Bug Fixes</h3>
+
+<ul>
+  <li>Replace Lenna test image</li>
+</ul>
+
+<h2 id="210-2018-08-26">2.1.0 (2018-08-26)</h2>
+
+<h3 id="enhancements-7">Enhancements</h3>
+
+<ul>
+  <li>Search panel (Click search icon in the header or press <code class="language-plaintext highlighter-rouge">s</code> or <code class="language-plaintext highlighter-rouge">/</code> key to search)</li>
+  <li>Npm social icon (@WangQiru)</li>
+</ul>
+
+<h3 id="bug-fixes-3">Bug Fixes</h3>
+
+<ul>
+  <li>Google analytics may not work, use gtag.js</li>
+</ul>
+
+<h2 id="202-2018-07-29">2.0.2 (2018-07-29)</h2>
+
+<h3 id="enhancements-8">Enhancements</h3>
+
+<ul>
+  <li>Highlight theme</li>
+  <li>Articles whit <code class="language-plaintext highlighter-rouge">sidebar.toc</code> support section navigator (previous and next navigator)</li>
+  <li>Aside Toc show immediately after page get ready (no more delay)</li>
+</ul>
+
+<h3 id="bug-fixes-4">Bug Fixes</h3>
+
+<ul>
+  <li>Aside Toc may display error when scroll to bottom</li>
+</ul>
+
+<h2 id="201-2018-07-07">2.0.1 (2018-07-07)</h2>
+
+<blockquote>
+  <p>“All elements that respond to press should have a visual feedback when touched.”</p>
+
+  <p>—TouchableWithoutFeedback in <em>React Native Docs</em></p>
+</blockquote>
+
+<h3 id="enhancements-9">Enhancements</h3>
+
+<ul>
+  <li>Some interaction details optimize: button and link add feedback when clicked, cancel button of input in archive layout, button focus style, etc</li>
+</ul>
+
+<h3 id="bug-fixes-5">Bug Fixes</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">mathjax</code> and <code class="language-plaintext highlighter-rouge">mermaid</code> setting may not work</li>
+</ul>
+
+<h2 id="200-2018-07-01">2.0.0 (2018-07-01)</h2>
+
+<p>Breaking changes, please check <a href="https://tianqi.name/jekyll-TeXt-theme/docs/en/update-from-1-to-2">Update from 1.x to 2.x</a> for details</p>
+
+<h3 id="enhancements-10">Enhancements</h3>
+
+<ul>
+  <li>Authors</li>
+  <li>License</li>
+  <li>New layouts (page, article, landing, etc)</li>
+</ul>
+
+<h2 id="150-2018-03-18">1.5.0 (2018-03-18)</h2>
+
+<h3 id="enhancements-11">Enhancements</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">text_color_theme</code> setting</li>
+  <li>Long pagination</li>
+  <li>Additional styles (Alert, Image)</li>
+  <li>Mathjax <code class="language-plaintext highlighter-rouge">autoNumber</code> setting (@liao961120)</li>
+  <li>Article heading anchor</li>
+  <li>Previous and next post</li>
+  <li>Search</li>
+</ul>
+
+<h2 id="143-2018-01-13">1.4.3 (2018-01-13)</h2>
+
+<h3 id="enhancements-12">Enhancements</h3>
+
+<ul>
+  <li>New TOC style</li>
+  <li>Gitalk support (@WangQiru)</li>
+  <li>Mermaid support</li>
+  <li><code class="language-plaintext highlighter-rouge">site.paths</code> and <code class="language-plaintext highlighter-rouge">site.nav_lists</code> configs support absolute URL</li>
+</ul>
+
+<h2 id="142-2017-12-10">1.4.2 (2017-12-10)</h2>
+
+<h3 id="enhancements-13">Enhancements</h3>
+
+<ul>
+  <li>Use new liquid syntax to avoid unnecessary output whitespace</li>
+  <li>Add <code class="language-plaintext highlighter-rouge">paths.base</code> setting</li>
+</ul>
+
+<h2 id="141-2017-12-05">1.4.1 (2017-12-05)</h2>
+
+<h3 id="enhancements-14">Enhancements</h3>
+
+<ul>
+  <li>New color themes(Chocolate, Orange)</li>
+</ul>
+
+<h3 id="bug-fixes-6">Bug Fixes</h3>
+
+<ul>
+  <li>Issues 9: the _posts file can’t recorded by git</li>
+</ul>
+
+<h2 id="140-2017-11-19">1.4.0 (2017-11-19)</h2>
+
+<h3 id="enhancements-15">Enhancements</h3>
+
+<ul>
+  <li>Internationalization</li>
+</ul>
+
+<h3 id="bug-fixes-7">Bug Fixes</h3>
+
+<ul>
+  <li>Table overflow-x smooth on iOS</li>
+</ul>
+
+<h2 id="130-2017-11-11">1.3.0 (2017-11-11)</h2>
+
+<h3 id="enhancements-16">Enhancements</h3>
+
+<ul>
+  <li>Article tag supports special characters</li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>Excerpts type (HTML</td>
+          <td>TEXT)</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>Titles on the phone become smaller</li>
+  <li>Change styles for table, code and blockquote</li>
+</ul>
+
+<h2 id="122-2017-11-04">1.2.2 (2017-11-04)</h2>
+
+<h3 id="enhancements-17">Enhancements</h3>
+
+<ul>
+  <li>MathJax Support</li>
+  <li>Add “Read more” link at the end of article excerpt</li>
+  <li>404 page</li>
+</ul>
+
+<h3 id="bug-fixes-8">Bug Fixes</h3>
+
+<ul>
+  <li>Fix Email link URL error</li>
+  <li>Fix Site Title link URL error</li>
+  <li>Fix table responsive style error</li>
+</ul>
+
+<h2 id="121-2017-10-27">1.2.1 (2017-10-27)</h2>
+
+<h3 id="enhancements-18">Enhancements</h3>
+
+<ul>
+  <li>Optimize Article TOC</li>
+</ul>
+
+<h3 id="bug-fixes-9">Bug Fixes</h3>
+
+<ul>
+  <li>Pageview display error when the post key include <code class="language-plaintext highlighter-rouge">-</code> (@yuxianda)</li>
+  <li>Email url error</li>
+</ul>
+
+<h2 id="120-2017-10-22">1.2.0 (2017-10-22)</h2>
+
+<h3 id="enhancements-19">Enhancements</h3>
+
+<ul>
+  <li>Article excerpt no more than 200 words</li>
+  <li>If <code class="language-plaintext highlighter-rouge">leancloud</code> is not set, 0 view won’t display</li>
+</ul>
+
+<h3 id="bug-fixes-10">Bug Fixes</h3>
+
+<ul>
+  <li>Fix article TOC’s display error at proper situation</li>
+  <li>Fix footer social buttons not in the center bug</li>
+</ul>
+
+<h2 id="110-2017-10-19">1.1.0 (2017-10-19)</h2>
+
+<h3 id="enhancements-20">Enhancements</h3>
+
+<ul>
+  <li>Color variables</li>
+  <li>More color themes (dark, forest, ocean)</li>
+</ul>
+
+<h2 id="100-2017-10-17">1.0.0 (2017-10-17)</h2>
+
+<h3 id="enhancements-21">Enhancements</h3>
+
+<ul>
+  <li>Better article directories</li>
+  <li>Dark color theme</li>
+</ul>
+</div><section class="page__comments d-print-none"></section></article><!-- start custom main bottom snippet -->
+
+<!-- end custom main bottom snippet -->
+</div>
+            </div></div></div><div class="page__footer d-print-none">
+<footer class="footer py-4 js-page-footer">
+  <div class="main"><div itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content=""><meta itemprop="url" content="/"><div class="footer__author-links"><div class="author-links">
+  <ul class="menu menu--nowrap menu--inline"></ul>
+</div>
+</div>
+    </div><div class="site-info mt-2">
+      <div>© Keerthana Gurushankar 2020,
+        Powered by <a title="Jekyll is a simple, blog-aware, static site generator." href="http://jekyllrb.com/">Jekyll</a> & <a
+        title="TeXt is a super customizable Jekyll theme." href="https://github.com/kitian616/jekyll-TeXt-theme">TeXt Theme</a>.
+      </div>
+    </div>
+  </div>
+</footer>
+</div></div>
+    </div><script>(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    var $body = $('body'), $window = $(window);
+    var $pageRoot = $('.js-page-root'), $pageMain = $('.js-page-main');
+    var activeCount = 0;
+    function modal(options) {
+      var $root = this, visible, onChange, hideWhenWindowScroll = false;
+      var scrollTop;
+      function setOptions(options) {
+        var _options = options || {};
+        visible = _options.initialVisible === undefined ? false : show;
+        onChange = _options.onChange;
+        hideWhenWindowScroll = _options.hideWhenWindowScroll;
+      }
+      function init() {
+        setState(visible);
+      }
+      function setState(isShow) {
+        if (isShow === visible) {
+          return;
+        }
+        visible = isShow;
+        if (visible) {
+          activeCount++;
+          scrollTop = $(window).scrollTop() || $pageMain.scrollTop();
+          $root.addClass('modal--show');
+          $pageMain.scrollTop(scrollTop);
+          activeCount === 1 && ($pageRoot.addClass('show-modal'), $body.addClass('of-hidden'));
+          hideWhenWindowScroll && window.hasEvent('touchstart') && $window.on('scroll', hide);
+          $window.on('keyup', handleKeyup);
+        } else {
+          activeCount > 0 && activeCount--;
+          $root.removeClass('modal--show');
+          $window.scrollTop(scrollTop);
+          activeCount === 0 && ($pageRoot.removeClass('show-modal'), $body.removeClass('of-hidden'));
+          hideWhenWindowScroll && window.hasEvent('touchstart') && $window.off('scroll', hide);
+          $window.off('keyup', handleKeyup);
+        }
+        onChange && onChange(visible);
+      }
+      function show() {
+        setState(true);
+      }
+      function hide() {
+        setState(false);
+      }
+      function handleKeyup(e) {
+        // Char Code: 27  ESC
+        if (e.which ===  27) {
+          hide();
+        }
+      }
+      setOptions(options);
+      init();
+      return {
+        show: show,
+        hide: hide,
+        $el: $root
+      };
+    }
+    $.fn.modal = modal;
+  });
+})();
+</script><div class="modal modal--overflow page__search-modal d-print-none js-page-search-modal"></div></div>
+
+
+<script>(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    function scrollToAnchor(anchor, duration, callback) {
+      var $root = this;
+      $root.animate({ scrollTop: $(anchor).position().top }, duration, function() {
+        window.history.replaceState(null, '', window.location.href.split('#')[0] + anchor);
+        callback && callback();
+      });
+    }
+    $.fn.scrollToAnchor = scrollToAnchor;
+  });
+})();
+(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    function affix(options) {
+      var $root = this, $window = $(window), $scrollTarget, $scroll,
+        offsetBottom = 0, scrollTarget = window, scroll = window.document, disabled = false, isOverallScroller = true,
+        rootTop, rootLeft, rootHeight, scrollBottom, rootBottomTop,
+        hasInit = false, curState;
+
+      function setOptions(options) {
+        var _options = options || {};
+        _options.offsetBottom && (offsetBottom = _options.offsetBottom);
+        _options.scrollTarget && (scrollTarget = _options.scrollTarget);
+        _options.scroll && (scroll = _options.scroll);
+        _options.disabled !== undefined && (disabled = _options.disabled);
+        $scrollTarget = $(scrollTarget);
+        isOverallScroller = window.isOverallScroller($scrollTarget[0]);
+        $scroll = $(scroll);
+      }
+      function preCalc() {
+        top();
+        rootHeight = $root.outerHeight();
+        rootTop = $root.offset().top + (isOverallScroller ? 0 :  $scrollTarget.scrollTop());
+        rootLeft = $root.offset().left;
+      }
+      function calc(needPreCalc) {
+        needPreCalc && preCalc();
+        scrollBottom = $scroll.outerHeight() - offsetBottom - rootHeight;
+        rootBottomTop = scrollBottom - rootTop;
+      }
+      function top() {
+        if (curState !== 'top') {
+          $root.removeClass('fixed').css({
+            left: 0,
+            top: 0
+          });
+          curState = 'top';
+        }
+      }
+      function fixed() {
+        if (curState !== 'fixed') {
+          $root.addClass('fixed').css({
+            left: rootLeft + 'px',
+            top: 0
+          });
+          curState = 'fixed';
+        }
+      }
+      function bottom() {
+        if (curState !== 'bottom') {
+          $root.removeClass('fixed').css({
+            left: 0,
+            top: rootBottomTop + 'px'
+          });
+          curState = 'bottom';
+        }
+      }
+      function setState() {
+        var scrollTop = $scrollTarget.scrollTop();
+        if (scrollTop >= rootTop && scrollTop <= scrollBottom) {
+          fixed();
+        } else if (scrollTop < rootTop) {
+          top();
+        } else {
+          bottom();
+        }
+      }
+      function init() {
+        if(!hasInit) {
+          var interval, timeout;
+          calc(true); setState();
+          // run calc every 100 millisecond
+          interval = setInterval(function() {
+            calc();
+          }, 100);
+          timeout = setTimeout(function() {
+            clearInterval(interval);
+          }, 45000);
+          window.pageLoad.then(function() {
+            setTimeout(function() {
+              clearInterval(interval);
+              clearTimeout(timeout);
+            }, 3000);
+          });
+          $scrollTarget.on('scroll', function() {
+            disabled || setState();
+          });
+          $window.on('resize', function() {
+            disabled || (calc(true), setState());
+          });
+          hasInit = true;
+        }
+      }
+
+      setOptions(options);
+      if (!disabled) {
+        init();
+      }
+      $window.on('resize', window.throttle(function() {
+        init();
+      }, 200));
+      return {
+        setOptions: setOptions,
+        refresh: function() {
+          calc(true, { animation: false }); setState();
+        }
+      };
+    }
+    $.fn.affix = affix;
+  });
+})();
+(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    function toc(options) {
+      var $root = this, $window = $(window), $scrollTarget, $scroller, $tocUl = $('<ul class="toc toc--ellipsis"></ul>'), $tocLi, $headings, $activeLast, $activeCur,
+        selectors = 'h1,h2,h3', container = 'body', scrollTarget = window, scroller = 'html, body', disabled = false,
+        headingsPos, scrolling = false, hasRendered = false, hasInit = false;
+
+      function setOptions(options) {
+        var _options = options || {};
+        _options.selectors && (selectors = _options.selectors);
+        _options.container && (container = _options.container);
+        _options.scrollTarget && (scrollTarget = _options.scrollTarget);
+        _options.scroller && (scroller = _options.scroller);
+        _options.disabled !== undefined && (disabled = _options.disabled);
+        $headings = $(container).find(selectors).filter('[id]');
+        $scrollTarget = $(scrollTarget);
+        $scroller = $(scroller);
+      }
+      function calc() {
+        headingsPos = [];
+        $headings.each(function() {
+          headingsPos.push(Math.floor($(this).position().top));
+        });
+      }
+      function setState(element, disabled) {
+        var scrollTop = $scrollTarget.scrollTop(), i;
+        if (disabled || !headingsPos || headingsPos.length < 1) { return; }
+        if (element) {
+          $activeCur = element;
+        } else {
+          for (i = 0; i < headingsPos.length; i++) {
+            if (scrollTop >= headingsPos[i]) {
+              $activeCur = $tocLi.eq(i);
+            } else {
+              $activeCur || ($activeCur = $tocLi.eq(i));
+              break;
+            }
+          }
+        }
+        $activeLast && $activeLast.removeClass('active');
+        ($activeLast = $activeCur).addClass('active');
+      }
+      function render() {
+        if(!hasRendered) {
+          $root.append($tocUl);
+          $headings.each(function() {
+            var $this = $(this);
+            $tocUl.append($('<li></li>').addClass('toc-' + $this.prop('tagName').toLowerCase())
+              .append($('<a></a>').text($this.text()).attr('href', '#' + $this.prop('id'))));
+          });
+          $tocLi = $tocUl.children('li');
+          $tocUl.on('click', 'a', function(e) {
+            e.preventDefault();
+            var $this = $(this);
+            scrolling = true;
+            setState($this.parent());
+            $scroller.scrollToAnchor($this.attr('href'), 400, function() {
+              scrolling = false;
+            });
+          });
+        }
+        hasRendered = true;
+      }
+      function init() {
+        var interval, timeout;
+        if(!hasInit) {
+          render(); calc(); setState(null, scrolling);
+          // run calc every 100 millisecond
+          interval = setInterval(function() {
+            calc();
+          }, 100);
+          timeout = setTimeout(function() {
+            clearInterval(interval);
+          }, 45000);
+          window.pageLoad.then(function() {
+            setTimeout(function() {
+              clearInterval(interval);
+              clearTimeout(timeout);
+            }, 3000);
+          });
+          $scrollTarget.on('scroll', function() {
+            disabled || setState(null, scrolling);
+          });
+          $window.on('resize', window.throttle(function() {
+            if (!disabled) {
+              render(); calc(); setState(null, scrolling);
+            }
+          }, 100));
+        }
+        hasInit = true;
+      }
+
+      setOptions(options);
+      if (!disabled) {
+        init();
+      }
+      $window.on('resize', window.throttle(function() {
+        init();
+      }, 200));
+      return {
+        setOptions: setOptions
+      };
+    }
+    $.fn.toc = toc;
+  });
+})();
+/*(function () {
+
+})();*/
+</script>
+    </div>
+    <script>(function () {
+  var $root = document.getElementsByClassName('root')[0];
+  if (window.hasEvent('touchstart')) {
+    $root.dataset.isTouch = true;
+    document.addEventListener('touchstart', function(){}, false);
+  }
+})();
+</script>
+  </body>
+</html>
+

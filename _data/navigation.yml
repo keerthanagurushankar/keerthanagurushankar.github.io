@@ -1,0 +1,9 @@
+header:
+  - title: "About"
+    url: /
+  - title: "Publications"
+    url: /publications/
+  - title: "Blog"
+    url: /blog/
+  - title: "CV"
+    url: cv.pdf
