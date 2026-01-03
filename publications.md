@@ -1,6 +1,7 @@
 ---
 layout: page
 title: "Publications"
+permalink: /publications/
 ---
 
 **Improving Upon the Generalized cμ rule: A Whittle Approach**  
