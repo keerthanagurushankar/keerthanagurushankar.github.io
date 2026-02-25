@@ -1,1 +1,88 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4001/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4001/" rel="alternate" type="text/html" /><updated>2026-01-02T23:20:37-05:00</updated><id>http://localhost:4001/feed.xml</id><title type="html">Keerthana Gurushankar</title></feed>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2026-02-24T22:11:41-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Keerthana Gurushankar</title><entry><title type="html">Things I’m grateful for</title><link href="http://localhost:4000/2026/02/24/things-im-grateful-for.html" rel="alternate" type="text/html" title="Things I’m grateful for" /><published>2026-02-24T00:00:00-05:00</published><updated>2026-02-24T00:00:00-05:00</updated><id>http://localhost:4000/2026/02/24/things-im-grateful-for</id><content type="html" xml:base="http://localhost:4000/2026/02/24/things-im-grateful-for.html"><![CDATA[<p>Things I like about living in the US:</p>
+<ul>
+  <li>The freedom to untie my hair, wear shorts, eat meat and be with whomever I please</li>
+  <li>Long empty sidewalks to run for miles and miles, even trails</li>
+  <li>Thrift stores abundant with beautiful cheap things</li>
+  <li>Probably milder workplace politics than what I’ve been told about various other places</li>
+</ul>
+
+<p>Things I like about CMU:</p>
+<ul>
+  <li>In 11th grade, I attended a 2 day math camp before the INMO. I thought it would be a dream to do that everyday.</li>
+  <li>In 12th grade, I loved OCW and thought it would be surreal to be a part of those live lectures.</li>
+  <li>Today these things are largely the realities of my life.</li>
+</ul>]]></content><author><name></name></author></entry><entry><title type="html">How I Learned to Love Exercise</title><link href="http://localhost:4000/2025/02/11/how-i-learned-to-love-exercise.html" rel="alternate" type="text/html" title="How I Learned to Love Exercise" /><published>2025-02-11T00:00:00-05:00</published><updated>2025-02-11T00:00:00-05:00</updated><id>http://localhost:4000/2025/02/11/how-i-learned-to-love-exercise</id><content type="html" xml:base="http://localhost:4000/2025/02/11/how-i-learned-to-love-exercise.html"><![CDATA[<p>In May 2020, exercise was one of those things I knew I should do but mostly didn’t. Like everyone else stuck at home during COVID, I tried Couch to 5K—it was a whole trend, right? People were running in their neighborhoods because what else were you going to do.</p>
+
+<p>[opening paragraph about early attempts - to be filled in]</p>
+
+<p>Fast forward to now—it’s 2025, I run 30 miles a week and genuinely look forward to it, and I broke a two-year bench press plateau going from 50 to 90 pounds. I still can’t quite believe I’m someone who does this voluntarily, but here we are.</p>
+
+<p><img src="/assets/images/fitness-journey-graph.png" alt="My fitness journey over time" /></p>
+
+<h2 id="what-actually-happened">What Actually Happened</h2>
+
+<style>
+.fitness-timeline-container {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.fitness-timeline-text {
+  flex: 1;
+}
+
+.fitness-timeline-image {
+  flex: 0 0 400px;
+}
+
+@media (max-width: 768px) {
+  .fitness-timeline-container {
+    flex-direction: column;
+  }
+
+  .fitness-timeline-image {
+    flex: 1;
+    order: 2;
+  }
+
+  .fitness-timeline-text {
+    order: 1;
+  }
+}
+</style>
+
+<div class="fitness-timeline-container">
+  <div class="fitness-timeline-text">
+
+[Fill in: May 2021 - long bikes made me sad, switched to running apps]
+
+[Fill in: August 2021 - bought Zena audiobook, discovered Caroline Girvan workouts, loved them]
+
+[Fill in: November 2021 - downloaded weights app, busy with PhD applications]
+
+[Fill in: February 2022 - grad school visits, decided to join gym, watched "gym etiquette" YouTube videos]
+
+[Fill in: March 2023 - plateau, rotator cuff injury, rock climbing with friends]
+
+[Fill in: September/October 2023 - first 5K race, discovered Pilates/fitness channels]
+
+[Fill in: March 2025 - met powerlifting boyfriend, broke bench plateau from 50 to 90 pounds]
+
+[Fill in: June 2025 - summer at gym, running went from 10 mi/week to 30 mi/week]
+
+  </div>
+  <div class="fitness-timeline-image">
+    <img src="/assets/images/fitness-journey-timeline.png" alt="Timeline of my fitness journey" style="width: 100%;" />
+  </div>
+</div>
+
+<h2 id="section-title---to-be-filled-in">[Section title - to be filled in]</h2>
+
+<p>[Reflections/takeaways based on the journey - to be filled in]</p>
+
+<h2 id="where-im-at-now">Where I’m At Now</h2>
+
+<p>Five years ago, my relationship with exercise was “not fun, not consistent.” Now I run 30 miles a week, I’m breaking PRs on my lifts, and I actually look forward to workouts. I still can’t quite believe that’s true.</p>
+
+<p>[Closing thoughts - to be filled in]</p>]]></content><author><name></name></author><summary type="html"><![CDATA[From Couch to 5K during COVID to actually running 30 miles a week five years later. Spoiler: I tried a lot of things I hated first.]]></summary></entry></feed>

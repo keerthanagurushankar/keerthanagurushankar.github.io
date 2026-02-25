@@ -1,1 +1,1 @@
-window.TEXT_SEARCH_DATA={'posts':[]};
+window.TEXT_SEARCH_DATA={'posts':[{'title':"How I Learned to Love Exercise",'url':"/2025/02/11/how-i-learned-to-love-exercise.html"},{'title':"Things I'm grateful for",'url':"/2026/02/24/things-im-grateful-for.html"}]};
