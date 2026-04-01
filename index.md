@@ -10,7 +10,7 @@ title: "About"
   <div>
     I am a Computer Science PhD student at Carnegie Mellon University, advised by
     <a href="https://www.cs.cmu.edu/~harchol/">Mor Harchol-Balter</a>. My current research
-    focuses on the performance of scheduling policies with age-based priority.
+    focuses on bandits and index policies in queueing.
 
     Find me on <a href="https://www.linkedin.com/in/keerthana-gurushankar/">LinkedIn</a>, <a href="https://github.com/keerthanagurushankar/">GitHub</a>, and <a href="https://scholar.google.com/citations?user=c9wAUV8AAAAJ&hl=en&oi=ao">Google Scholar</a>.
   </div>
