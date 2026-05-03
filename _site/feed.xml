@@ -1,4 +1,96 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2026-02-24T22:11:41-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Keerthana Gurushankar</title><entry><title type="html">Things I’m grateful for</title><link href="http://localhost:4000/2026/02/24/things-im-grateful-for.html" rel="alternate" type="text/html" title="Things I’m grateful for" /><published>2026-02-24T00:00:00-05:00</published><updated>2026-02-24T00:00:00-05:00</updated><id>http://localhost:4000/2026/02/24/things-im-grateful-for</id><content type="html" xml:base="http://localhost:4000/2026/02/24/things-im-grateful-for.html"><![CDATA[<p>Things I like about living in the US:</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2026-05-03T19:24:37-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Keerthana Gurushankar</title><entry><title type="html">Reflecting On PhD Admissions</title><link href="http://localhost:4000/2026/05/03/phd-admissions.html" rel="alternate" type="text/html" title="Reflecting On PhD Admissions" /><published>2026-05-03T00:00:00-04:00</published><updated>2026-05-03T00:00:00-04:00</updated><id>http://localhost:4000/2026/05/03/phd-admissions</id><content type="html" xml:base="http://localhost:4000/2026/05/03/phd-admissions.html"><![CDATA[<p>Faculty at top CS departments consider recruiting talented PhD students one of the most important and difficult parts of their job. Almost everyone I have spoken to who has served on an admissions committee expresses some level of frustration with the process.</p>
+
+<h3 id="the-process">The Process</h3>
+
+<p>When I served on admissions committee, I reviewed around 200 applications over three weeks during winter break. Each packet got 3-10 minutes. I looked at the applicant’s school and GPA, their publication list: title, venue, authorship. Then I skimmed the recommendation letters for broadly glowing language and keywords like “independent” or “one of my best students in the last n years.” Then I skimmed the SOP for decent grammar and some faint signal of research taste. I gave scores on rubrics, wrote tiny comments, and clicked to the next packet.</p>
+
+<p>50-75% of applicants got that review from one to three readers and nothing more. Some of the rest received informal 20-minute interviews and were gauged for faculty advising interest.</p>
+
+<p>A PhD admission is a six-year $500k commitment, made mostly based on an application packet of a CV, cover letter and reference letters. Most established companies require more process for a summer internship.</p>
+
+<h3 id="the-evidence-on-paper">The Evidence on Paper</h3>
+
+<p>In most CS subfields, the primary evidence of research ability is recommenders attesting that the applicant is good at research. Publications provide more evidence, especially in subfields like ML where they are common. Though even then, reviewers can mostly only evaluate venue prestige.</p>
+
+<p>We want to measure an applicant’s research potential. We can primarily answer this by: (i) does their recommender say they show great research potential, and (ii) do I trust their recommender to claim this?</p>
+
+<p>A friend, before joining a committee, thought elite programs were simply admitting their friends’ students and perhaps he could do better. Once on committee, he found himself doing the same, not out of favoritism, but because he could not figure out anything meaningful about anyone else from the packet. Many/most admissions committee members are similarly idealistic, and often overwhelmed with the volume of applications to finish reading over Christmas.</p>
+
+<p>For applicants from top-10 or top-20 departments who start research early, the process still works reasonably well. Their recommenders are known, they sometimes have publications in respected venues, and reviewers can calibrate. This is maybe 10–20% of the applicant pool.</p>
+
+<p>For applicants from state schools, or international students (especially from smaller countries): they may have done genuine research with sincere letters attesting to it. Those letters are uninterpretable to reviewers under time pressure. The very best from these programs get in when some additional signal happens to exist (e.g., they already made a major research breakthrough). When it doesn’t, the application is indistinguishable from noise.</p>
+
+<h3 id="thoughts-on-better-evidence">Thoughts on Better Evidence</h3>
+
+<p>The strongest predictor of job performance is watching someone do the job. Academia has a weak structural equivalent to industry internships in REUs, but expanding such programs is hard.</p>
+
+<p>Many schools these days have <em>some</em> interview component these days. However, during my own admission process, a couple of professors went further: conducting technical research interviews, giving me papers to critique and asking me to come up with potential projects we might work on together.</p>
+
+<p>E.g. <a href="https://people.seas.harvard.edu/~flavio/">Flavio Calmon</a> sent me a prepared handout in advance outlining his interview structure. We talked about my prior research experience, then I presented my solutions to some technical problems he had provided, then we critiqued and brainstormed problems in his research area based on papers he had asked me to read. We both learned a lot about what it would be like to work with each other. It was awesome, I loved it.</p>
+
+<p>If I am faculty one day, I would like to do something very similar. I wish this were more common.</p>]]></content><author><name></name></author></entry><entry><title type="html">Winning the Citadel C1 PhD Datathon 2024</title><link href="http://localhost:4000/2026/04/01/winning-citadel-c1-phd-datathon-2024.html" rel="alternate" type="text/html" title="Winning the Citadel C1 PhD Datathon 2024" /><published>2026-04-01T00:00:00-04:00</published><updated>2026-04-01T00:00:00-04:00</updated><id>http://localhost:4000/2026/04/01/winning-citadel-c1-phd-datathon-2024</id><content type="html" xml:base="http://localhost:4000/2026/04/01/winning-citadel-c1-phd-datathon-2024.html"><![CDATA[<h3 id="overview">Overview</h3>
+<ul>
+  <li>In Nov 2024, I signed up to participate in the Citadel Correlation One Global PhD Datathon. The topic for the week-long event was “Investigating a Decade of Clinical Trials within the US”.</li>
+  <li>I conducted a large scale statistical analysis into the data integrity of 10 yrs of US clinical trials published on clinicaltrials.gov.</li>
+  <li>My submission won 3rd place and was praised for its highly practical problem formulation and rigorous analysis.</li>
+</ul>
+
+<h3 id="what-is-the-competition-and-why-did-i-sign-up">What is the competition and why did I sign up?</h3>
+<ul>
+  <li>The Citadel/C1 Global PhD Datathon is an annual data competition which brings together ~30 students from various universities around the world, to tackle real-world social challenges in topics such as urban traffic, renewable energy, and education.</li>
+  <li>The competition was one of many random postings I fired applications off to without expectation. When I received an invitation to participate, I had mixed feelings about how/whether to make time for the event within my rigorous research schedule.</li>
+  <li>Still I had been looking for opportunities to experiment with real data and thought it could be a good chance to expand my comfort zone.</li>
+</ul>
+
+<h3 id="the-prompt">The prompt</h3>
+<ul>
+  <li>The competition topic titled “Investigating a Decade of Clinical Trials within the US” invited participants to probe into U.S. clinical trials from any perspective of their choosing.</li>
+  <li>We were provided a dataset containing nearly all website data available on <a href="https://clinicaltrials.gov/">clinicaltrials.gov</a>: comprehensive public records of US clinical trials conducted in 2014-2024.</li>
+  <li>We were also given auxiliary datasets of 10 years of health care stock prices and <a href="https://nces.ed.gov/ipeds">IPEDS</a> data on U.S. universities, and encouraged to find and use our own custom data.</li>
+</ul>
+
+<h3 id="initial-strategy">Initial strategy</h3>
+<ul>
+  <li>I started by looking at all the data available to me. I found it fascinating to page through various clinical trial proposals, with detailed measurements of control groups and project outcomes, and explore demographic details of US higher ed. I even wondered if I should seek out “alternative” data as the prompt encouraged.</li>
+  <li>Though I was ultimately lost on what to do with any of it, what about clinical trials needed “investigation.” I mused about what is the point of clinical trials and which parts are broken and what may be improvable.</li>
+  <li>I started reading surveys on challenges in clinical trials. I looked into my PhD advisor’s survey on challenges in peer review and found a thread of papers identifying problems in science evaluation. I wondered if I could tackle problems such as review fraud, economic incentives, or evaluating proposals with uncertain reward.</li>
+</ul>
+
+<h3 id="proof-of-concept">Proof of concept</h3>
+<ul>
+  <li>Along this thread, I found one 2005 paper <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC1181267/">Are these data real?</a> which examined one clinical trial which had been suspected of data fabrication. It conducted statistical analyses on the trial measurements to test:
+    <ul>
+      <li>If participants are randomly assigned to control and treatment groups, their demographic characteristics should look statistically similar. Do they?</li>
+    </ul>
+  </li>
+  <li>Not only did I find this paper’s problem interesting, I happily recalled that the NCT dataset reported extensive intimate details about the various features of test participants (starting with height, weight, age, and extending to much more niche trial specific features) for nearly all of its 22000 trials.</li>
+  <li>I excitedly tried manually running some of the paper’s statistical tests on a few trials from my dataset: specifically, testing the p-value of whether participants had been assigned to randomized control groups truly randomly. I found that their categorical tests produced meaningful numbers, though the continuous features in my dataset were too variable to generalize their approach.</li>
+  <li>I decided that I would expand this experiment into a large-scale data integrity analysis for my submission.</li>
+</ul>
+
+<h3 id="refining-and-report-draft">Refining and report draft</h3>
+<ul>
+  <li>I set about scaling the chi-squared tests out to run on the full dataset. Even with my handy 2024 chatbot whipping out pandas commands I didn’t care to follow, the data cleaning and error handling cost a sleepless Saturday night.</li>
+  <li>It was also not obvious whether my numbers meant anything, so I decided to come up with my own second validation test. After trying a few approaches, I settled on a Benford’s Law test.
+    <ul>
+      <li><a href="https://en.wikipedia.org/wiki/Benford%27s_law">Benford’s Law</a> is an observation that in many real-life sets of numerical data, the leading digit is likely to be small. In fabricated data, it may be more likely to appear uniform. It is often used to detect accounting fraud. I used it to test whether the trials outcome measurements were likely to be generated by real measurements.</li>
+    </ul>
+  </li>
+  <li>I compared the results of my two tests, and explored if trials produced by certain authors or institutions were more likely to be flagged by either of my tests. I found that some institutions’ trials were “flagged” at rates of 30-60% while the overall flag rate was 4-14%.</li>
+  <li>Results in hand, I whipped together a final <a href="https://github.com/keerthanagurushankar/nct-data-integrity/blob/main/gurushankar_keerthana_report.pdf">report</a> hours before the deadline.</li>
+</ul>
+
+<h3 id="competition-results">Competition Results</h3>
+<ul>
+  <li>I was pleasantly surprised to find that my project won 3rd place in the competition. It was praised for its highly practical problem formulation and rigorous analysis at the awards presentation. I received a $2500 cash prize for my labors.</li>
+</ul>
+
+<h3 id="reflecting">Reflecting</h3>
+<ul>
+  <li>I’m glad I participated. I learned a lot and gained confidence in my skills in exchange for a small time commitment. It also helped highlight my work to potential employers and collaborators.</li>
+  <li>While I don’t stand by the fraud allegations suggested by my hastily compiled report, I do think a statistical “plagiarism checker” for data integrity in clinical trials is an idea with real potential, and something which potentially could be standardized.</li>
+  <li>Clinical trials sometimes face <a href="https://www.science.org/content/blog-post/too-many-bad-clinical-trials">allegations</a> of being rife with faulty trials: paper milling and “big pharma” manipulation (interestingly, my report found no higher faulty trial rate coming from industry as compared to academia!). Similar statistical checkers have been implemented in other fields (e.g. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7540394/">statcheck</a>). I think my project suggests this kind of work is feasible for clinical trials as well.</li>
+</ul>]]></content><author><name></name></author></entry><entry><title type="html">Things I’m grateful for</title><link href="http://localhost:4000/2026/02/24/things-im-grateful-for.html" rel="alternate" type="text/html" title="Things I’m grateful for" /><published>2026-02-24T00:00:00-05:00</published><updated>2026-02-24T00:00:00-05:00</updated><id>http://localhost:4000/2026/02/24/things-im-grateful-for</id><content type="html" xml:base="http://localhost:4000/2026/02/24/things-im-grateful-for.html"><![CDATA[<p>Things I like about living in the US:</p>
 <ul>
   <li>The freedom to untie my hair, wear shorts, eat meat and be with whomever I please</li>
   <li>Long empty sidewalks to run for miles and miles, even trails</li>
@@ -11,13 +103,21 @@
   <li>In 11th grade, I attended a 2 day math camp before the INMO. I thought it would be a dream to do that everyday.</li>
   <li>In 12th grade, I loved OCW and thought it would be surreal to be a part of those live lectures.</li>
   <li>Today these things are largely the realities of my life.</li>
-</ul>]]></content><author><name></name></author></entry><entry><title type="html">How I Learned to Love Exercise</title><link href="http://localhost:4000/2025/02/11/how-i-learned-to-love-exercise.html" rel="alternate" type="text/html" title="How I Learned to Love Exercise" /><published>2025-02-11T00:00:00-05:00</published><updated>2025-02-11T00:00:00-05:00</updated><id>http://localhost:4000/2025/02/11/how-i-learned-to-love-exercise</id><content type="html" xml:base="http://localhost:4000/2025/02/11/how-i-learned-to-love-exercise.html"><![CDATA[<p>In May 2020, exercise was one of those things I knew I should do but mostly didn’t. Like everyone else stuck at home during COVID, I tried Couch to 5K—it was a whole trend, right? People were running in their neighborhoods because what else were you going to do.</p>
+</ul>]]></content><author><name></name></author></entry><entry><title type="html">How I Learned to Love Exercise</title><link href="http://localhost:4000/2025/02/11/how-i-learned-to-love-exercise.html" rel="alternate" type="text/html" title="How I Learned to Love Exercise" /><published>2025-02-11T00:00:00-05:00</published><updated>2025-02-11T00:00:00-05:00</updated><id>http://localhost:4000/2025/02/11/how-i-learned-to-love-exercise</id><content type="html" xml:base="http://localhost:4000/2025/02/11/how-i-learned-to-love-exercise.html"><![CDATA[<p>Exercise is one of my favorite things I’ve picked up in the recent years. I recently thought about how much I love this for myself and felt an urge to document my journey thus far.</p>
 
-<p>[opening paragraph about early attempts - to be filled in]</p>
+<h2 id="background">Background</h2>
 
-<p>Fast forward to now—it’s 2025, I run 30 miles a week and genuinely look forward to it, and I broke a two-year bench press plateau going from 50 to 90 pounds. I still can’t quite believe I’m someone who does this voluntarily, but here we are.</p>
+<p>I was not an athletic kid. All my childhood interests were “intellectually oriented.” I was rejected from the middleschool basketball team, which I very much wanted to be on because all my friends were. It seemed to me that athleticism was mainly a function of running (sprinting) speed and running speed was mainly an immutable genetic trait.</p>
 
-<p><img src="/assets/images/fitness-journey-graph.png" alt="My fitness journey over time" /></p>
+<p>I lost weight when I entered highschool as I began to care about my appearance, but saw it a</p>
+
+<p>College became an extremely stressful time of life. My primary goal was to graduate sooner than I dropped out. I lived on free pizza and kept myself awake to finish assignments using sugar highs. By early 2020, I weighed my lifetime PR (*ig so far 😅) of 112 kg. COVID was relatively kind to me and freed up bandwidth for me to try running Summer 2020, as an excuse to touch grass while social distancing. It was pretty awful, as it seems God intended Couch to 5K plans to be. As the school year restarted, I fell back to running mostly only my treadmill of HW assignments.</p>
+
+<p>By May 2021 when I graduated, I was pretty anxious to pay off my accrued calorie surplus. I spent my copious new free time hiking the many Pittsburgh city steps, thinking the big questions of life. This is roughly where I began to grow a love of exercise.</p>
+
+<p>I will spend most of the rest of this post outlining the boring looking parts of 2021–present in Fig 1. In this time, I have explored different kinds of movement, and grown to running a happy 20 miles a week and benching big girl plates. Exercise has become a seamless part of my life, and even value system.</p>
+
+<p><img src="/assets/images/fitness-journey-graph.png" alt="Fig 1. My fitness journey over time" /></p>
 
 <h2 id="what-actually-happened">What Actually Happened</h2>
 
@@ -54,6 +154,14 @@
 
 <div class="fitness-timeline-container">
   <div class="fitness-timeline-text">
+
+## Story time
+
+In May 2020, exercise was one of those things I knew I should do but mostly didn't. Like everyone else stuck at home during COVID, I tried Couch to 5K—it was a whole trend, right? People were running in their neighborhoods because what else were you going to do.
+
+[opening paragraph about early attempts - to be filled in]
+
+Fast forward to now—it's 2025, I run 30 miles a week and genuinely look forward to it, and I broke a two-year bench press plateau going from 50 to 90 pounds. I still can't quite believe I'm someone who does this voluntarily, but here we are.
 
 [Fill in: May 2021 - long bikes made me sad, switched to running apps]
 
