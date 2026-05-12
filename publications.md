@@ -6,18 +6,18 @@ permalink: /publications/
 
 ## Working papers
 
-**Bandit Policies for Online Task Assignment with Reusable Resources**
-	Keerthana Gurushankar, Mor Harchol-Balter, Alan Scheller-Wolf [Preprint](_papers/online_task_assigment_crmab.pdf)
+**Bandit Policies for Online Task Assignment with Reusable Resources**  
+	Keerthana Gurushankar, Mor Harchol-Balter, Alan Scheller-Wolf [Preprint](/assets/papers/online_task_assigment_crmab.pdf)
 
-## Published papers 
+## Publications
 
 **Improving Upon the Generalized cμ rule: A Whittle Approach**  
     Zhouzi Li, Keerthana Gurushankar, Mor Harchol-Balter, Alan Scheller-Wolf  
-    Accepted to Operations Research [Preprint](_papers/tvhc_whittle_or_submission.pdf)
+    Mar 2026, Accepted to Operations Research [Preprint](/assets/papers/tvhc_whittle_or_submission.pdf)
     
 **LookAhead: The Optimal Non-decreasing Index Policy for a Time-Varying Holding Cost Problem**  
 	Keerthana Gurushankar\*, Zhouzi Li\*, Mor Harchol-Balter, Alan Scheller-Wolf  
-    Dec 2025, Queueing Systems
+    Dec 2025, Queueing Systems [Preprint](https://arxiv.org/abs/2601.08960)
 
 **Latency Guarantees for Caching With Delayed Hits**  
     Keerthana Gurushankar\*, Noah G. Singer\*, Bernardo Subercaseaux\*  
@@ -28,7 +28,7 @@ permalink: /publications/
 	May 2024, ISIT 2024 Workshop on Information Theory in Neuroscience and Neuroengineering [Preprint](https://arxiv.org/abs/2110.00889)
 
 **What’s in a Name? Linear Temporal Logic Literally Represents Time Lines**  
-    Keerthana Gurushankar\*, Runming Li\*, Marijn J.H. Heule, Kristin Y. Rozier  
+    Runming Li\*, Keerthana Gurushankar\*,  Marijn J.H. Heule, Kristin Y. Rozier  
    	Jul 2023, IEEE Working Conference on Software Visualization (VISSOFT 2023) [Preprint](https://www.andrew.cmu.edu/user/runmingl/paper/ltl.pdf) [Artifact](https://zenodo.org/record/8244783)
 
 **Capturing and Interpreting Unique Information**  
