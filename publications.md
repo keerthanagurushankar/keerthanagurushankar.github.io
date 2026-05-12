@@ -4,9 +4,16 @@ title: "Publications"
 permalink: /publications/
 ---
 
+## Working papers
+
+**Bandit Policies for Online Task Assignment with Reusable Resources**
+	Keerthana Gurushankar, Mor Harchol-Balter, Alan Scheller-Wolf [Preprint](_papers/online_task_assigment_crmab.pdf)
+
+## Published papers 
+
 **Improving Upon the Generalized cμ rule: A Whittle Approach**  
     Zhouzi Li, Keerthana Gurushankar, Mor Harchol-Balter, Alan Scheller-Wolf  
-    In submission to Operations Research (received major revision) [Preprint](https://arxiv.org/abs/2504.10622)  
+    Accepted to Operations Research [Preprint](_papers/tvhc_whittle_or_submission.pdf)
     
 **LookAhead: The Optimal Non-decreasing Index Policy for a Time-Varying Holding Cost Problem**  
 	Keerthana Gurushankar\*, Zhouzi Li\*, Mor Harchol-Balter, Alan Scheller-Wolf  
