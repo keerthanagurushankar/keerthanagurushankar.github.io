@@ -1,0 +1,1828 @@
+---
+layout: none
+title: "The Online Reviewer Assignment Problem"
+date: 2026-06-07
+excerpt: ""
+---
+{% raw %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>The Online Reviewer Assignment Problem</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="color-scheme" content="light only" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
+<style>
+  :root { color-scheme: light only; }
+  html, body { margin: 0; padding: 0; background: #fbfaf6 !important; color: #2a2520; }
+  body {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 18px; line-height: 1.65; letter-spacing: 0.005em;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 64px 28px 96px; }
+
+  /* typography */
+  h1, h2, h3 { font-family: 'Inter', system-ui, sans-serif; font-weight: 600; color: #1f1a14; letter-spacing: -0.01em; line-height: 1.2; }
+  h1 { font-size: 34px; margin: 0 0 8px; }
+  h2 { font-size: 22px; margin: 56px 0 18px; }
+  h3 { font-size: 17px; margin: 36px 0 12px; }
+  p { margin: 0 0 18px; text-wrap: pretty; }
+  strong { font-weight: 600; color: #1f1a14; }
+  em { color: #3a342c; }
+  a { color: #6b4d72; text-decoration: underline; text-decoration-color: #c4b1c8; text-underline-offset: 3px; }
+
+  /* lists */
+  ul { padding-left: 22px; margin: 0 0 18px; }
+  li { margin-bottom: 6px; }
+  li::marker { color: #9a9285; }
+
+  /* tables: light academic style */
+  table { border-collapse: collapse; margin: 22px 0 26px; font-family: 'Inter', system-ui, sans-serif; font-size: 14px; }
+  th, td { padding: 8px 14px; border-bottom: 1px solid #d8d2c5; text-align: left; }
+  th { font-weight: 600; color: #4a4339; border-bottom: 1.5px solid #6b6358; }
+  td { color: #2a2520; }
+
+  /* math (KaTeX inline & display) */
+  .katex-display { margin: 24px 0; }
+
+  /* "running example" callout box */
+  .runex {
+    background: #f5f1ea;
+    border: 1px solid #e3dccb;
+    border-left: 3px solid #b09b78;
+    padding: 28px 32px 18px;
+    border-radius: 0 6px 6px 0;
+    margin: 36px 0;
+    position: relative;
+  }
+  .runex::before {
+    content: 'Running example';
+    display: block;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 10.5px;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    color: #6b6358;
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+  .runex > p:first-of-type,
+  .runex > ul:first-of-type { margin-top: 0; }
+  .runex > p:last-of-type,
+  .runex > figure:last-of-type { margin-bottom: 4px; }
+  /* legacy raw HTML the markdown used to have — hide if it sneaks through */
+  div[style*="border: 1px solid black"] { display: none; }
+
+  /* author / meta */
+  .meta { font-family: 'Inter', system-ui, sans-serif; font-size: 13px; color: #9a9285; margin: 0 0 36px; letter-spacing: 0.02em; }
+
+  /* figures */
+  figure { margin: 28px 0; }
+  figure .fig-shell {
+    background: #fbfaf6;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 4px 18px rgba(0,0,0,0.04);
+    max-width: 560px;
+    margin: 0 auto;
+  }
+  /* Inside a running-example box, figures sit a bit tighter */
+  .runex figure { margin: 22px -8px; }
+  .runex figure .fig-shell { max-width: 100%; }
+  figcaption {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 12.5px;
+    color: #6b6358;
+    margin-top: 10px;
+    line-height: 1.5;
+    text-align: left;
+    padding: 0 4px;
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .runex figcaption { max-width: none; }
+  figcaption .figlabel {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 10.5px;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: #9a9285;
+    margin-right: 6px;
+  }
+
+  /* responsive: bleed figures less on narrow viewports */
+  @media (max-width: 800px) {
+    figure { margin: 24px 0; }
+  }
+</style>
+</head>
+<body>
+<div id="post" class="wrap">
+  <p class="meta">Loading post…</p>
+</div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked@12.0.0/marked.min.js"></script>
+
+<!-- shared.jsx -->
+<script type="text/babel">
+const FIG = {
+  // Paper backgrounds & ink
+  paper: '#fbfaf6',
+  paperAlt: '#f5f1ea',
+  ink: '#2a2520',
+  inkSoft: '#6b6358',
+  inkFaint: '#9a9285',
+  rule: '#d8d2c5',
+  ruleSoft: '#e7e1d4',
+
+  // Paper types
+  ml: '#d99478',          // muted terracotta
+  mlSoft: '#f2dccf',
+  mlDeep: '#a86247',
+  opt: '#7aa6b8',         // muted teal-blue
+  optSoft: '#d4e2e8',
+  optDeep: '#4a7384',
+
+  // Reviewers
+  ben: '#7a5d82',         // muted plum
+  benSoft: '#e3d6e6',
+  grad: '#6b8a6f',        // muted forest
+  gradSoft: '#d6e3d8',
+  four: '#b09b78',        // warm taupe
+  fourSoft: '#e8e0cf',
+
+  // Highlights
+  good: '#3e7a52',
+  bad: '#a4513b',
+  neutral: '#7a7468',
+
+  // Type stacks
+  serif: '"Source Serif 4", Georgia, serif',
+  sans: 'Inter, system-ui, sans-serif',
+  mono: '"JetBrains Mono", ui-monospace, monospace',
+};
+
+function Avatar({ who, size = 64, ring = true }) {
+  const data = {
+    ben: {
+      bg: FIG.benSoft, fg: FIG.ben,
+      hair: '#3a2f2c',
+      extras: (
+        <g>
+          <path d="M16 30 Q14 44 16 56 L20 56 Q19 48 21 42 Q22 38 24 36 Q24 30 26 26 Q32 16 38 26 Q40 30 40 36 Q42 38 43 42 Q45 48 44 56 L48 56 Q50 44 48 30 Q46 16 32 14 Q18 16 16 30 Z"
+                fill="#3a2f2c"/>
+          <path d="M20 28 Q26 18 32 20 Q38 18 44 28 Q44 24 32 18 Q20 24 20 28 Z"
+                fill="#3a2f2c"/>
+        </g>
+      ),
+    },
+    grad: {
+      bg: FIG.gradSoft, fg: FIG.grad,
+      extras: (
+        <g>
+          <path d="M19 25 Q32 12 45 25 L45 30 Q32 22 19 30 Z" fill="#3a3530" />
+          <path d="M28 39 Q32 41 36 39" stroke="#3a3530" strokeWidth="1.4" fill="none" strokeLinecap="round" />
+        </g>
+      ),
+    },
+    four: {
+      bg: FIG.fourSoft, fg: FIG.four,
+      extras: (
+        <g>
+          <path d="M18 26 Q22 18 26 24 Q30 16 34 24 Q38 16 42 24 Q46 18 46 26 L46 28 Q32 22 18 28 Z" fill="#6b5840" />
+        </g>
+      ),
+    },
+  }[who];
+
+  return (
+    <svg viewBox="0 0 64 64" width={size} height={size} style={{ display: 'block' }}>
+      <circle cx="32" cy="32" r="30" fill={data.bg} />
+      <path d="M8 60 Q8 46 22 44 L42 44 Q56 46 56 60 Z" fill={data.fg} />
+      <circle cx="32" cy="30" r="13" fill="#f1e3d4" />
+      {data.extras}
+    </svg>
+  );
+}
+
+const REVIEWERS = [
+  { id: 'ben',  name: 'ExpertLi',  short: 'Fei',  color: FIG.ben,  soft: FIG.benSoft,  desc: 'veteran generalist' },
+  { id: 'grad', name: 'Stepinski', short: 'Adam', color: FIG.grad, soft: FIG.gradSoft, desc: 'optimization specialist' },
+  { id: 'four', name: 'Beginner',  short: 'Bay',  color: FIG.four, soft: FIG.fourSoft, desc: 'novice reviewer' },
+];
+const REV_BY_ID = Object.fromEntries(REVIEWERS.map(r => [r.id, r]));
+
+const PAPER_TYPES = [
+  { id: 'ml',  label: 'LLM',           short: 'LLM',  color: FIG.ml,  soft: FIG.mlSoft,  deep: FIG.mlDeep,  prob: 0.8 },
+  { id: 'opt', label: 'Optimization', short: 'Opt', color: FIG.opt, soft: FIG.optSoft, deep: FIG.optDeep, prob: 0.2 },
+];
+const PT_BY_ID = Object.fromEntries(PAPER_TYPES.map(p => [p.id, p]));
+
+const SCORES = {
+  ml:  { ben: 0.9, grad: 0.1, four: 0.05 },
+  opt: { ben: 0.7, grad: 0.6, four: 0.05 },
+};
+
+const WTP = {
+  ml:  { ben: 0.9,  grad: -0.05, four: 0.05 },
+  opt: { ben: 0.46, grad: 0.6,   four: 0.05 },
+};
+
+const GREEDY_SEQ = [
+  { t: 1, type: 'opt', rev: 'ben',  score: 0.7  },
+  { t: 2, type: 'ml',  rev: 'grad', score: 0.1  },
+  { t: 3, type: 'ml',  rev: 'ben', score: 0.9 },
+  { t: 4, type: 'ml',  rev: 'grad',  score: 0.1  },
+  { t: 5, type: 'opt', rev: 'ben', score: 0.7  },
+];
+const WHITTLE_SEQ = [
+  { t: 1, type: 'opt', rev: 'grad', score: 0.6  },
+  { t: 2, type: 'ml',  rev: 'ben',  score: 0.9  },
+  { t: 3, type: 'ml',  rev: 'four', score: 0.05 },
+  { t: 4, type: 'ml',  rev: 'ben',  score: 0.9  },
+  { t: 5, type: 'opt', rev: 'grad', score: 0.6  },
+];
+
+function TypePill({ type, size = 'md' }) {
+  const pt = PT_BY_ID[type];
+  const pad = size === 'sm' ? '2px 8px' : size === 'lg' ? '5px 14px' : '3px 10px';
+  const font = size === 'sm' ? 11 : size === 'lg' ? 14 : 12;
+  return (
+    <span style={{
+      display: 'inline-flex', alignItems: 'center', gap: 6,
+      padding: pad, borderRadius: 999,
+      background: pt.soft, color: pt.deep,
+      fontFamily: FIG.sans, fontSize: font, fontWeight: 600, letterSpacing: 0.2,
+    }}>
+      <span style={{ width: 7, height: 7, borderRadius: 999, background: pt.color }}/>
+      {pt.label}
+    </span>
+  );
+}
+
+function RevChip({ id, size = 'md', faded = false }) {
+  const r = REV_BY_ID[id];
+  const a = size === 'sm' ? 18 : size === 'lg' ? 28 : 22;
+  const font = size === 'sm' ? 11 : size === 'lg' ? 14 : 12;
+  return (
+    <span style={{
+      display: 'inline-flex', alignItems: 'center', gap: 6,
+      opacity: faded ? 0.35 : 1,
+    }}>
+      <Avatar who={id} size={a} />
+      <span style={{
+        fontFamily: FIG.sans, fontSize: font, fontWeight: 600, color: r.color, letterSpacing: 0.1,
+      }}>{r.name}</span>
+    </span>
+  );
+}
+
+function Num({ value, size = 16, weight = 500, color = FIG.ink, sign = false }) {
+  const n = sign && value > 0 ? `+${value}` : `${value}`;
+  return (
+    <span style={{
+      fontFamily: FIG.serif, fontVariantNumeric: 'tabular-nums lining-nums',
+      fontSize: size, fontWeight: weight, color, letterSpacing: 0.2,
+    }}>{n}</span>
+  );
+}
+
+function FigTitle({ eyebrow, title, sub }) {
+  return (
+    <div style={{ marginBottom: 14 }}>
+      {eyebrow && (
+        <div style={{
+          fontFamily: FIG.sans, fontSize: 10.5, letterSpacing: 1.2,
+          textTransform: 'uppercase', color: FIG.inkFaint, fontWeight: 600,
+        }}>{eyebrow}</div>
+      )}
+      {title && (
+        <div style={{
+          fontFamily: FIG.serif, fontSize: 20, fontWeight: 500, color: FIG.ink,
+          marginTop: 4, lineHeight: 1.2,
+        }}>{title}</div>
+      )}
+      {sub && (
+        <div style={{
+          fontFamily: FIG.sans, fontSize: 12, color: FIG.inkSoft,
+          marginTop: 4, lineHeight: 1.4, maxWidth: 520,
+        }}>{sub}</div>
+      )}
+    </div>
+  );
+}
+
+Object.assign(window, {
+  FIG, Avatar, REVIEWERS, REV_BY_ID, PAPER_TYPES, PT_BY_ID,
+  SCORES, WTP, GREEDY_SEQ, WHITTLE_SEQ,
+  TypePill, RevChip, Num, FigTitle,
+});
+</script>
+
+<!-- fig-cast.jsx -->
+<script type="text/babel">
+function FigCastMatrix() {
+  const W = 880;
+  return (
+    <div style={{
+      width: W, padding: '32px 40px 32px',
+      background: FIG.paper, fontFamily: FIG.sans, color: FIG.ink,
+      display: 'flex', justifyContent: 'center',
+    }}>
+      <ScoreMatrix scores={SCORES} showProb />
+    </div>
+  );
+}
+
+function ScoreMatrix({ scores, showProb = false, showWtp = false, values = null, highlight = null }) {
+  const data = values || scores;
+  const cellH = 64;
+  const labelW = 200;
+  const colW = 168;
+  return (
+    <div style={{
+      display: 'inline-grid',
+      gridTemplateColumns: `${labelW}px repeat(3, ${colW}px)`,
+      borderTop: `1px solid ${FIG.rule}`,
+      borderLeft: `1px solid ${FIG.rule}`,
+    }}>
+      {/* corner */}
+      <div style={cellStyle(cellH * 0.6, { background: FIG.paper, borderRight: `1px solid ${FIG.rule}` })}/>
+      {REVIEWERS.map(r => (
+        <div key={r.id} style={cellStyle(cellH * 0.6, {
+          background: FIG.paper, borderRight: `1px solid ${FIG.rule}`,
+          alignItems: 'center', justifyContent: 'center', gap: 8,
+          flexDirection: 'row', display: 'flex', padding: '0 12px',
+        })}>
+          <Avatar who={r.id} size={26} />
+          <span style={{ fontFamily: FIG.serif, fontSize: 13.5, fontWeight: 600, color: r.color }}>
+            {r.name}
+          </span>
+        </div>
+      ))}
+
+      {/* rows */}
+      {PAPER_TYPES.map(pt => (
+        <React.Fragment key={pt.id}>
+          <div style={cellStyle(cellH, {
+            background: pt.soft,
+            borderRight: `1px solid ${FIG.rule}`,
+            borderTop: `1px solid ${FIG.rule}`,
+            padding: '0 16px',
+          })}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <span style={{ width: 8, height: 8, borderRadius: 999, background: pt.color }}/>
+              <span style={{ fontFamily: FIG.serif, fontSize: 14, fontWeight: 600, color: pt.deep }}>{pt.label}</span>
+            </div>
+            {showProb && (
+              <div style={{ fontSize: 10.5, color: pt.deep, opacity: 0.8, marginTop: 2, fontFamily: FIG.mono }}>
+                p = {pt.prob}
+              </div>
+            )}
+          </div>
+          {REVIEWERS.map(r => {
+            const v = data[pt.id][r.id];
+            const isHi = highlight && highlight.some(([t, rv]) => t === pt.id && rv === r.id);
+            return (
+              <div key={r.id} style={cellStyle(cellH, {
+                borderRight: `1px solid ${FIG.rule}`,
+                borderTop: `1px solid ${FIG.rule}`,
+                background: heatTint(v, pt.color),
+                alignItems: 'center', justifyContent: 'center',
+                position: 'relative',
+                outline: isHi ? `2px solid ${FIG.ink}` : 'none',
+                outlineOffset: -2,
+              })}>
+                <Num value={fmt(v)} size={22} weight={500} color={v < 0 ? FIG.bad : FIG.ink} />
+              </div>
+            );
+          })}
+        </React.Fragment>
+      ))}
+    </div>
+  );
+}
+
+function cellStyle(h, extra) {
+  return {
+    height: h,
+    display: 'flex', flexDirection: 'column', justifyContent: 'center',
+    boxSizing: 'border-box',
+    borderBottom: `1px solid ${FIG.rule}`,
+    ...extra,
+  };
+}
+
+function heatTint(v, color) {
+  const c = clamp((v - 0) / 1, 0, 1);
+  const alpha = Math.max(0, c) * 0.45;
+  return `color-mix(in oklab, ${color} ${Math.round(alpha * 100)}%, ${FIG.paper})`;
+}
+function clamp(x, a, b) { return Math.min(b, Math.max(a, x)); }
+function fmt(v) {
+  if (v === 0) return '0';
+  const s = (Math.abs(v) < 1 ? v.toFixed(2) : v.toFixed(2)).replace(/^0\./, '.').replace(/^-0\./, '−.');
+  return s;
+}
+
+function FigCastBipartite() {
+  const W = 880, H = 380;
+  const leftX = 170, rightX = 700;
+  const ptY = { ml: 110, opt: 260 };
+  const revY = { ben: 80, grad: 190, four: 300 };
+
+  const edges = [];
+  PAPER_TYPES.forEach(pt => {
+    REVIEWERS.forEach(r => {
+      edges.push({ pt: pt.id, r: r.id, w: SCORES[pt.id][r.id] });
+    });
+  });
+
+  return (
+    <div style={{
+      width: W, padding: '32px 36px 28px', background: FIG.paper,
+      fontFamily: FIG.sans, color: FIG.ink,
+    }}>
+      <svg viewBox={`0 0 ${W - 72} ${H}`} width={W - 72} height={H}>
+        {edges.map(e => {
+          const x1 = leftX, y1 = ptY[e.pt];
+          const x2 = rightX, y2 = revY[e.r];
+          const sw = 1 + e.w * 12;
+          const col = PT_BY_ID[e.pt].color;
+          return (
+            <g key={`${e.pt}-${e.r}`}>
+              <path
+                d={`M${x1} ${y1} C ${(x1+x2)/2} ${y1}, ${(x1+x2)/2} ${y2}, ${x2} ${y2}`}
+                stroke={col} strokeWidth={sw} fill="none"
+                opacity={0.35 + e.w * 0.5}
+                strokeLinecap="round"
+              />
+              <g transform={`translate(${(x1+x2)/2}, ${(y1+y2)/2})`}>
+                <rect x={-22} y={-11} width={44} height={22} rx={11} fill={FIG.paper} stroke={col} strokeOpacity={0.4}/>
+                <text x={0} y={5} textAnchor="middle" fontFamily={FIG.serif} fontSize={13} fontWeight={500} fill={FIG.ink} style={{ fontVariantNumeric: 'tabular-nums' }}>
+                  {fmt(e.w)}
+                </text>
+              </g>
+            </g>
+          );
+        })}
+
+        {PAPER_TYPES.map(pt => (
+          <g key={pt.id} transform={`translate(${leftX}, ${ptY[pt.id]})`}>
+            <circle r={36} fill={pt.soft} stroke={pt.color} strokeWidth={1.5}/>
+            <text textAnchor="middle" y={-2} fontFamily={FIG.serif} fontSize={14} fontWeight={600} fill={pt.deep}>
+              {pt.label}
+            </text>
+            <text textAnchor="middle" y={14} fontFamily={FIG.mono} fontSize={10.5} fill={pt.deep} opacity={0.85}>
+              p={pt.prob}
+            </text>
+          </g>
+        ))}
+
+        {REVIEWERS.map(r => (
+          <g key={r.id} transform={`translate(${rightX}, ${revY[r.id]})`}>
+            <foreignObject x={-32} y={-32} width={64} height={64}>
+              <Avatar who={r.id} size={64} />
+            </foreignObject>
+            <text x={44} y={4} fontFamily={FIG.serif} fontSize={14} fontWeight={600} fill={r.color}>
+              {r.name}
+            </text>
+            <text x={44} y={20} fontFamily={FIG.sans} fontSize={11} fill={FIG.inkSoft}>
+              {r.desc}
+            </text>
+          </g>
+        ))}
+
+        <text x={leftX} y={20} textAnchor="middle" fontFamily={FIG.sans} fontSize={10.5}
+              fill={FIG.inkFaint} letterSpacing={1.2} style={{ textTransform: 'uppercase' }}>
+          paper type
+        </text>
+        <text x={rightX} y={20} textAnchor="middle" fontFamily={FIG.sans} fontSize={10.5}
+              fill={FIG.inkFaint} letterSpacing={1.2} style={{ textTransform: 'uppercase' }}>
+          reviewer
+        </text>
+      </svg>
+    </div>
+  );
+}
+
+Object.assign(window, { FigCastMatrix, FigCastBipartite, ScoreMatrix, fmt, heatTint });
+</script>
+
+<!-- fig-greedy.jsx -->
+<script type="text/babel">
+function TimelineLinear({ seq, policyLabel, avg }) {
+  const W = 880;
+  const cellW = 132;
+  const gap = 12;
+
+  return (
+    <div style={{
+      width: W, padding: '32px 36px 30px', background: FIG.paper,
+      fontFamily: FIG.sans, color: FIG.ink,
+    }}>
+      <div style={{
+        display: 'flex', gap, alignItems: 'flex-end',
+        marginBottom: 8, paddingLeft: 78,
+      }}>
+        {seq.map(s => (
+          <div key={s.t} style={{
+            width: cellW, textAlign: 'center',
+            fontFamily: FIG.mono, fontSize: 10.5, color: FIG.inkFaint, letterSpacing: 1,
+          }}>
+            t = {s.t}
+          </div>
+        ))}
+      </div>
+
+      <Row label="arrival" labelFont={FIG.sans}>
+        {seq.map(s => {
+          const pt = PT_BY_ID[s.type];
+          return (
+            <div key={s.t} style={{
+              width: cellW, height: 56,
+              background: pt.soft, borderRadius: 8,
+              display: 'flex', flexDirection: 'column',
+              alignItems: 'center', justifyContent: 'center',
+              border: `1px solid ${pt.color}33`,
+            }}>
+              <PaperGlyph type={s.type} />
+              <span style={{ marginTop: 4, fontFamily: FIG.serif, fontSize: 13, fontWeight: 600, color: pt.deep }}>
+                {pt.label}
+              </span>
+            </div>
+          );
+        })}
+      </Row>
+
+      <Row label="assigned" mt={10}>
+        {seq.map(s => {
+          const r = REV_BY_ID[s.rev];
+          return (
+            <div key={s.t} style={{
+              width: cellW, height: 72,
+              background: FIG.paper,
+              border: `1px solid ${FIG.rule}`, borderRadius: 8,
+              display: 'flex', flexDirection: 'column',
+              alignItems: 'center', justifyContent: 'center',
+              gap: 4,
+            }}>
+              <Avatar who={s.rev} size={32} />
+              <span style={{ fontFamily: FIG.sans, fontSize: 11, fontWeight: 600, color: r.color }}>
+                {r.name}
+              </span>
+            </div>
+          );
+        })}
+      </Row>
+
+      <Row label="score" mt={6}>
+        {seq.map(s => {
+          const bad = s.score < 0.2;
+          const ok  = s.score >= 0.6;
+          const col = bad ? FIG.bad : (ok ? FIG.good : FIG.ink);
+          return (
+            <div key={s.t} style={{
+              width: cellW, height: 44,
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+            }}>
+              <Num value={fmt(s.score)} size={26} weight={500} color={col} />
+            </div>
+          );
+        })}
+      </Row>
+
+      <div style={{
+        marginTop: 18, paddingTop: 14, borderTop: `1px solid ${FIG.rule}`,
+        display: 'flex', alignItems: 'baseline', justifyContent: 'space-between',
+      }}>
+        <div>
+          <span style={{
+            fontFamily: FIG.sans, fontSize: 10.5, letterSpacing: 1.2,
+            textTransform: 'uppercase', color: FIG.inkFaint, fontWeight: 600,
+          }}>{policyLabel}</span>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: 10 }}>
+          <span style={{ fontFamily: FIG.sans, fontSize: 12, color: FIG.inkSoft }}>average score</span>
+          <Num value={avg.toFixed(2)} size={28} weight={600} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Row({ label, labelFont = FIG.sans, mt = 0, children }) {
+  return (
+    <div style={{
+      display: 'flex', gap: 12, alignItems: 'center', marginTop: mt,
+    }}>
+      <div style={{
+        width: 66, textAlign: 'right', flexShrink: 0,
+        fontFamily: labelFont, fontSize: 11, color: FIG.inkSoft,
+        fontStyle: labelFont === FIG.serif ? 'italic' : 'normal',
+      }}>
+        {label}
+      </div>
+      {children}
+    </div>
+  );
+}
+
+function PaperGlyph({ type, size = 16 }) {
+  const pt = PT_BY_ID[type];
+  return (
+    <svg viewBox="0 0 20 24" width={size * 0.85} height={size}>
+      <path d="M2 1 H14 L18 5 V22 Q18 23 17 23 H3 Q2 23 2 22 Z" fill={FIG.paper} stroke={pt.deep} strokeWidth="1"/>
+      <path d="M14 1 V5 H18" fill="none" stroke={pt.deep} strokeWidth="1"/>
+      <line x1="5" y1="10" x2="14" y2="10" stroke={pt.deep} strokeWidth="0.9"/>
+      <line x1="5" y1="13" x2="14" y2="13" stroke={pt.deep} strokeWidth="0.9"/>
+      <line x1="5" y1="16" x2="11" y2="16" stroke={pt.deep} strokeWidth="0.9"/>
+    </svg>
+  );
+}
+
+function TimelineGantt({ seq, policyLabel, avg, d = 2 }) {
+  const W = 880;
+  const cols = seq.length;
+  const labelW = 150;
+  const gridW = W - labelW;
+  const cellW = gridW / cols;
+  const rowH = 64;
+
+  const cells = REVIEWERS.map(r => {
+    const row = Array(cols).fill(null);
+    seq.forEach((s, i) => {
+      if (s.rev === r.id) {
+        row[i] = { kind: 'assigned', s };
+        for (let k = 1; k < d; k++) {
+          if (i + k < cols) row[i + k] = { kind: 'busy', s };
+        }
+      }
+    });
+    return { r, row };
+  });
+
+  return (
+    <div style={{
+      width: W, padding: '32px 36px 30px', background: FIG.paper,
+      fontFamily: FIG.sans, color: FIG.ink,
+    }}>
+      <div style={{ display: 'flex', marginLeft: labelW, marginBottom: 6 }}>
+        {seq.map((s, i) => (
+          <div key={i} style={{
+            width: cellW, textAlign: 'center',
+            fontFamily: FIG.mono, fontSize: 10.5, color: FIG.inkFaint, letterSpacing: 1,
+          }}>t = {s.t}</div>
+        ))}
+      </div>
+
+      <div style={{
+        display: 'flex', marginLeft: labelW, marginBottom: 14,
+        border: `1px solid ${FIG.rule}`, borderRadius: 8, overflow: 'hidden',
+      }}>
+        {seq.map((s, i) => {
+          const pt = PT_BY_ID[s.type];
+          return (
+            <div key={i} style={{
+              width: cellW, height: 40,
+              background: pt.soft,
+              borderRight: i < cols - 1 ? `1px solid ${FIG.rule}` : 'none',
+              display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
+            }}>
+              <PaperGlyph type={s.type} size={14} />
+              <span style={{ fontFamily: FIG.serif, fontSize: 12.5, fontWeight: 600, color: pt.deep }}>
+                {pt.label}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+
+      <div style={{ position: 'relative' }}>
+        {cells.map(({ r, row }, ri) => (
+          <div key={r.id} style={{ display: 'flex', alignItems: 'stretch', marginBottom: 4 }}>
+            <div style={{
+              width: labelW, paddingRight: 14,
+              display: 'flex', alignItems: 'center', gap: 10,
+              flexShrink: 0,
+            }}>
+              <Avatar who={r.id} size={32} />
+              <div>
+                <div style={{ fontFamily: FIG.serif, fontSize: 13, fontWeight: 600, color: r.color, lineHeight: 1.1 }}>
+                  {r.name}
+                </div>
+                <div style={{ fontSize: 10, color: FIG.inkFaint, marginTop: 1 }}>{r.desc}</div>
+              </div>
+            </div>
+            <div style={{ display: 'flex', flex: 1 }}>
+              {row.map((c, i) => {
+                if (!c) {
+                  return (
+                    <div key={i} style={{
+                      width: cellW, height: rowH,
+                      borderRight: i < cols - 1 ? `1px dashed ${FIG.ruleSoft}` : 'none',
+                      background: 'transparent',
+                    }}/>
+                  );
+                }
+                const pt = PT_BY_ID[c.s.type];
+                if (c.kind === 'assigned') {
+                  return (
+                    <div key={i} style={{
+                      width: cellW, height: rowH,
+                      background: pt.soft,
+                      border: `1.5px solid ${pt.color}`,
+                      borderRight: i < cols - 1 ? `1.5px solid ${pt.color}` : `1.5px solid ${pt.color}`,
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      flexDirection: 'column', gap: 2,
+                      borderTopRightRadius: 0, borderBottomRightRadius: 0,
+                      borderTopLeftRadius: 8, borderBottomLeftRadius: 8,
+                    }}>
+                      <span style={{ fontFamily: FIG.sans, fontSize: 9.5, color: pt.deep, letterSpacing: 0.6, textTransform: 'uppercase', fontWeight: 600 }}>
+                        review
+                      </span>
+                      <Num value={fmt(c.s.score)} size={22} weight={500} color={c.s.score < 0.2 ? FIG.bad : FIG.ink} />
+                    </div>
+                  );
+                }
+                return (
+                  <div key={i} style={{
+                    width: cellW, height: rowH,
+                    background: `repeating-linear-gradient(135deg, ${pt.soft} 0 8px, ${FIG.paper} 8px 14px)`,
+                    borderTop: `1.5px solid ${pt.color}`,
+                    borderBottom: `1.5px solid ${pt.color}`,
+                    borderRight: i === cols - 1 || row[i + 1]?.kind !== 'busy' && row[i + 1]?.kind !== 'assigned'
+                      ? `1.5px solid ${pt.color}` : 'none',
+                    borderTopRightRadius: 8, borderBottomRightRadius: 8,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  }}>
+                    <span style={{ fontFamily: FIG.sans, fontSize: 10, color: pt.deep, opacity: 0.7, letterSpacing: 0.6 }}>
+                      busy
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div style={{
+        marginTop: 18, paddingTop: 14, borderTop: `1px solid ${FIG.rule}`,
+        display: 'flex', alignItems: 'baseline', justifyContent: 'space-between',
+      }}>
+        <div>
+          <span style={{
+            fontFamily: FIG.sans, fontSize: 10.5, letterSpacing: 1.2,
+            textTransform: 'uppercase', color: FIG.inkFaint, fontWeight: 600,
+          }}>{policyLabel}</span>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: 10 }}>
+          <span style={{ fontFamily: FIG.sans, fontSize: 12, color: FIG.inkSoft }}>average score</span>
+          <Num value={avg.toFixed(2)} size={28} weight={600} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function FigGreedyLinear()  { return <TimelineLinear seq={GREEDY_SEQ}  policyLabel="Greedy"  avg={0.54}/>; }
+function FigGreedyGantt()   { return <TimelineGantt  seq={GREEDY_SEQ}  policyLabel="Greedy"  avg={0.54}/>; }
+
+Object.assign(window, {
+  TimelineLinear, TimelineGantt, PaperGlyph, Row,
+  FigGreedyLinear, FigGreedyGantt,
+});
+</script>
+
+<!-- fig-wtp.jsx -->
+<script type="text/babel">
+function FigWtpDerivation() {
+  const W = 880;
+  const barX = 130;
+  const barW = 600;
+  const px = v => barX + v * barW;
+
+  const sRaw = 0.7;
+  const dStep = 1.5;
+  const regretML  = Math.max(0.9 - 0.7, 0);
+  const regretOpt = Math.max(0.7 - 0.7, 0);
+  const perStep   = 0.8 * regretML + 0.2 * regretOpt;
+  const oppCost   = dStep * perStep;
+  const wtp       = sRaw - oppCost;
+
+  const trackY = 100;
+  const trackH = 36;
+
+  return (
+    <div style={{
+      width: W, padding: '32px 36px 30px', background: FIG.paper,
+      fontFamily: FIG.sans, color: FIG.ink,
+    }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 12 }}>
+        <Avatar who="ben" size={44} />
+        <div style={{ lineHeight: 1.25 }}>
+          <div style={{ fontFamily: FIG.serif, fontSize: 16, fontWeight: 600, color: FIG.ben }}>
+            ExpertLi
+          </div>
+          <div style={{ fontSize: 12, color: FIG.inkSoft, display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'nowrap', whiteSpace: 'nowrap' }}>
+            considering an <TypePill type="opt" size="sm" /> arrival
+          </div>
+        </div>
+      </div>
+
+      <svg viewBox={`0 0 ${W - 72} 340`} width={W - 72} height={340}>
+        <g>
+          {[0, 0.25, 0.5, 0.75, 1.0].map(v => (
+            <g key={v}>
+              <line x1={px(v)} y1={trackY - 4} x2={px(v)} y2={trackY + trackH + 4}
+                    stroke={FIG.rule} strokeWidth={1}/>
+              <text x={px(v)} y={trackY + trackH + 18}
+                    textAnchor="middle" fontFamily={FIG.mono} fontSize={10} fill={FIG.inkFaint}>
+                {v.toFixed(2).replace(/^0\./, '.')}
+              </text>
+            </g>
+          ))}
+        </g>
+
+        <rect x={px(0)} y={trackY} width={px(wtp) - px(0)} height={trackH}
+              fill={FIG.benSoft} stroke={FIG.ben} strokeWidth={1.2}/>
+        <rect x={px(wtp)} y={trackY} width={px(sRaw) - px(wtp)} height={trackH}
+              fill="#f0d3c8" stroke={FIG.bad} strokeWidth={1.2}/>
+
+        <g>
+          <line x1={px(sRaw)} y1={trackY - 6} x2={px(sRaw)} y2={trackY - 30}
+                stroke={FIG.ink} strokeWidth={1}/>
+          <circle cx={px(sRaw)} cy={trackY - 6} r={2.5} fill={FIG.ink}/>
+          <text x={px(sRaw)} y={trackY - 50} textAnchor="middle"
+                fontFamily={FIG.sans} fontSize={10.5} fill={FIG.inkFaint}
+                letterSpacing={1.1} style={{ textTransform: 'uppercase' }}>
+            similarity score
+          </text>
+          <text x={px(sRaw)} y={trackY - 35} textAnchor="middle"
+                fontFamily={FIG.serif} fontSize={15} fontWeight={600} fill={FIG.ink}
+                style={{ fontVariantNumeric: 'tabular-nums' }}>
+            sᵥᵣ = 0.70
+          </text>
+        </g>
+
+        <g>
+          <line x1={px(wtp)} y1={trackY - 6} x2={px(wtp)} y2={trackY - 30}
+                stroke={FIG.ben} strokeWidth={1}/>
+          <circle cx={px(wtp)} cy={trackY - 6} r={2.5} fill={FIG.ben}/>
+          <text x={px(wtp)} y={trackY - 50} textAnchor="middle"
+                fontFamily={FIG.sans} fontSize={10.5} fill={FIG.ben}
+                letterSpacing={1.1} fontWeight={600} style={{ textTransform: 'uppercase' }}>
+            WTP
+          </text>
+          <text x={px(wtp)} y={trackY - 35} textAnchor="middle"
+                fontFamily={FIG.serif} fontSize={15} fontWeight={600} fill={FIG.ben}
+                style={{ fontVariantNumeric: 'tabular-nums' }}>
+            W = 0.46
+          </text>
+        </g>
+
+        <g>
+          <path d={`M ${px(wtp)} ${trackY + trackH + 32} V ${trackY + trackH + 38} H ${px(sRaw)} V ${trackY + trackH + 32}`}
+                fill="none" stroke={FIG.bad} strokeWidth={1.2}/>
+          <text x={(px(wtp) + px(sRaw)) / 2} y={trackY + trackH + 56}
+                textAnchor="middle" fontFamily={FIG.sans} fontSize={11.5} fill={FIG.bad} fontWeight={600}>
+            opportunity cost  −0.24
+          </text>
+        </g>
+
+        <g transform={`translate(0, ${trackY + trackH + 78})`}>
+          <text x={0} y={0} fontFamily={FIG.sans} fontSize={10.5}
+                fill={FIG.inkFaint} letterSpacing={1.2} style={{ textTransform: 'uppercase' }}>
+            opportunity cost  =  d · Σᵥ′ pᵥ′ · max(sᵥ′ᵣ − sᵥᵣ, 0)
+          </text>
+          <foreignObject x={0} y={10} width={W - 72} height={64}>
+            <Decomp/>
+          </foreignObject>
+        </g>
+      </svg>
+    </div>
+  );
+}
+
+function Decomp() {
+  const cellStyle = {
+    padding: '8px 12px', background: FIG.paperAlt, borderRadius: 6,
+    border: `1px solid ${FIG.ruleSoft}`,
+    display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2,
+  };
+  return (
+    <div style={{
+      display: 'flex', alignItems: 'center', gap: 10, fontFamily: FIG.sans, fontSize: 12, color: FIG.inkSoft,
+    }}>
+      <div style={cellStyle}>
+        <span style={{ fontSize: 10.5, color: FIG.inkFaint }}>d (lockout)</span>
+        <Num value="1.5" size={16} />
+      </div>
+      <span style={{ fontFamily: FIG.serif, fontSize: 16, color: FIG.inkFaint }}>×</span>
+      <div style={cellStyle}>
+        <span style={{ fontSize: 10.5, color: FIG.mlDeep }}>p(ML) · regret on ML</span>
+        <span style={{ fontFamily: FIG.serif, fontSize: 14, color: FIG.ink, fontVariantNumeric: 'tabular-nums' }}>
+          0.8 × (0.9 − 0.7) = 0.16
+        </span>
+      </div>
+      <span style={{ fontFamily: FIG.serif, fontSize: 16, color: FIG.inkFaint }}>+</span>
+      <div style={cellStyle}>
+        <span style={{ fontSize: 10.5, color: FIG.optDeep }}>p(Opt) · regret on Opt</span>
+        <span style={{ fontFamily: FIG.serif, fontSize: 14, color: FIG.ink, fontVariantNumeric: 'tabular-nums' }}>
+          0.2 × max(0) = 0
+        </span>
+      </div>
+      <span style={{ fontFamily: FIG.serif, fontSize: 16, color: FIG.inkFaint }}>=</span>
+      <div style={{ ...cellStyle, background: '#f0d3c8', border: `1px solid ${FIG.bad}` }}>
+        <span style={{ fontSize: 10.5, color: FIG.bad }}>opportunity cost</span>
+        <Num value="0.24" size={16} weight={600} color={FIG.bad} />
+      </div>
+    </div>
+  );
+}
+
+function FigWtpTable() {
+  const W = 880;
+  return (
+    <div style={{
+      width: W, padding: '32px 36px 28px', background: FIG.paper,
+      fontFamily: FIG.sans, color: FIG.ink,
+    }}>
+      <div style={{
+        display: 'grid', gridTemplateColumns: '1fr auto 1fr', gap: 18, alignItems: 'center',
+      }}>
+        <div>
+          <SectionLabel>similarity score sᵥᵣ</SectionLabel>
+          <ScoreMatrix scores={SCORES} compact />
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
+          <Arrow />
+          <div style={{
+            fontFamily: FIG.sans, fontSize: 10.5, color: FIG.inkFaint,
+            letterSpacing: 1.2, textTransform: 'uppercase', textAlign: 'center',
+            maxWidth: 90, lineHeight: 1.3,
+          }}>subtract opp. cost</div>
+        </div>
+        <div>
+          <SectionLabel>willingness to pay W(v, r)</SectionLabel>
+          <ScoreMatrix scores={SCORES} values={WTP} compact />
+        </div>
+      </div>
+
+      <div style={{
+        marginTop: 24, paddingTop: 18, borderTop: `1px solid ${FIG.rule}`,
+        display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16,
+      }}>
+        <Callout color={FIG.bad}
+          title="Stepinski / ML is negative"
+          body="He'd rather sit idle than lock himself out of optimization papers."/>
+        <Callout color={FIG.ben}
+          title="ExpertLi / Opt drops sharply"
+          body="0.70 → 0.46 because of the ML papers she'd miss."/>
+        <Callout color={FIG.neutral}
+          title="Beginner stays flat at 0.05"
+          body="Nothing to lose, nothing to save themselves for."/>
+      </div>
+    </div>
+  );
+}
+
+function SectionLabel({ children }) {
+  return (
+    <div style={{
+      fontFamily: FIG.sans, fontSize: 10.5, letterSpacing: 1.2,
+      textTransform: 'uppercase', color: FIG.inkFaint, fontWeight: 600,
+      marginBottom: 8,
+    }}>{children}</div>
+  );
+}
+
+function Arrow() {
+  return (
+    <svg width={42} height={20} viewBox="0 0 42 20">
+      <path d="M2 10 H34 M28 4 L36 10 L28 16" fill="none" stroke={FIG.ink} strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  );
+}
+
+function Callout({ color, title, body }) {
+  return (
+    <div style={{ borderLeft: `3px solid ${color}`, paddingLeft: 12 }}>
+      <div style={{ fontFamily: FIG.serif, fontSize: 13, fontWeight: 600, color: FIG.ink }}>{title}</div>
+      <div style={{ fontSize: 11.5, color: FIG.inkSoft, marginTop: 3, lineHeight: 1.45 }}>{body}</div>
+    </div>
+  );
+}
+
+const _origScoreMatrix = window.ScoreMatrix;
+window.ScoreMatrix = function ScoreMatrix({ scores, showProb = false, values = null, compact = false, highlight = null }) {
+  const data = values || scores;
+  const cellH = compact ? 50 : 64;
+  const labelW = compact ? 130 : 200;
+  const colW = compact ? 100 : 168;
+  return (
+    <div style={{
+      display: 'inline-grid',
+      gridTemplateColumns: `${labelW}px repeat(3, ${colW}px)`,
+      borderTop: `1px solid ${FIG.rule}`,
+      borderLeft: `1px solid ${FIG.rule}`,
+    }}>
+      <div style={{
+        height: cellH * 0.55, background: FIG.paper,
+        borderRight: `1px solid ${FIG.rule}`, borderBottom: `1px solid ${FIG.rule}`,
+      }}/>
+      {REVIEWERS.map(r => (
+        <div key={r.id} style={{
+          height: cellH * 0.55, background: FIG.paper,
+          borderRight: `1px solid ${FIG.rule}`, borderBottom: `1px solid ${FIG.rule}`,
+          display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, padding: '0 8px',
+        }}>
+          <Avatar who={r.id} size={compact ? 20 : 26} />
+          <span style={{
+            fontFamily: FIG.serif, fontSize: compact ? 11.5 : 13.5, fontWeight: 600, color: r.color,
+            whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
+          }}>{compact ? r.short : r.name}</span>
+        </div>
+      ))}
+      {PAPER_TYPES.map(pt => (
+        <React.Fragment key={pt.id}>
+          <div style={{
+            height: cellH, background: pt.soft,
+            borderRight: `1px solid ${FIG.rule}`, borderBottom: `1px solid ${FIG.rule}`,
+            padding: '0 14px',
+            display: 'flex', flexDirection: 'column', justifyContent: 'center',
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <span style={{ width: 7, height: 7, borderRadius: 999, background: pt.color }}/>
+              <span style={{ fontFamily: FIG.serif, fontSize: compact ? 12.5 : 14, fontWeight: 600, color: pt.deep }}>
+                {pt.label}
+              </span>
+            </div>
+            {showProb && (
+              <div style={{ fontSize: 10, color: pt.deep, opacity: 0.8, marginTop: 2, fontFamily: FIG.mono }}>
+                p = {pt.prob}
+              </div>
+            )}
+          </div>
+          {REVIEWERS.map(r => {
+            const v = data[pt.id][r.id];
+            const isHi = highlight && highlight.some(([t, rv]) => t === pt.id && rv === r.id);
+            return (
+              <div key={r.id} style={{
+                height: cellH,
+                borderRight: `1px solid ${FIG.rule}`,
+                borderBottom: `1px solid ${FIG.rule}`,
+                background: window.heatTint(v, pt.color),
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                outline: isHi ? `2px solid ${FIG.ink}` : 'none',
+                outlineOffset: -2,
+              }}>
+                <Num value={window.fmt(v)} size={compact ? 17 : 22} weight={500}
+                     color={v < 0 ? FIG.bad : FIG.ink} />
+              </div>
+            );
+          })}
+        </React.Fragment>
+      ))}
+    </div>
+  );
+};
+
+Object.assign(window, { FigWtpDerivation, FigWtpTable });
+</script>
+
+<!-- fig-whittle.jsx -->
+<script type="text/babel">
+function FigWhittleLinear() { return <TimelineLinear seq={WHITTLE_SEQ} policyLabel="Whittle (willingness-to-pay)" avg={0.61}/>; }
+function FigWhittleGantt()  { return <TimelineGantt  seq={WHITTLE_SEQ} policyLabel="Whittle (willingness-to-pay)" avg={0.61}/>; }
+
+Object.assign(window, { FigWhittleLinear, FigWhittleGantt });
+</script>
+
+<!-- fig-compare.jsx -->
+<script type="text/babel">
+function FigCompareStacked() {
+  return (
+    <div style={{
+      width: 880, padding: '28px 36px 24px', background: FIG.paper,
+      fontFamily: FIG.sans, color: FIG.ink,
+    }}>
+      <PolicyStrip seq={GREEDY_SEQ}  label="Greedy"   avg={0.37} />
+      <div style={{ height: 18 }}/>
+      <PolicyStrip seq={WHITTLE_SEQ} label="Whittle"  avg={0.61} highlight />
+
+      <div style={{
+        marginTop: 22, padding: '14px 18px',
+        background: FIG.paperAlt, borderRadius: 10,
+        border: `1px solid ${FIG.ruleSoft}`,
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+      }}>
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: 12 }}>
+          <Num value="0.37" size={22} weight={500} color={FIG.inkSoft} />
+          <svg width={26} height={12} viewBox="0 0 26 12">
+            <path d="M0 6 H22 M16 1 L24 6 L16 11" fill="none" stroke={FIG.ink} strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+          <Num value="0.61" size={28} weight={600} color={FIG.good} />
+        </div>
+        <div style={{ textAlign: 'right' }}>
+          <Num value="+65%" size={22} weight={600} color={FIG.good} />
+          <div style={{ fontSize: 11, color: FIG.inkSoft, marginTop: 2 }}>
+            average-score improvement
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function PolicyStrip({ seq, label, avg, highlight = false }) {
+  const cellW = 124;
+  return (
+    <div style={{
+      border: `1px solid ${highlight ? FIG.good : FIG.rule}`,
+      borderRadius: 10, overflow: 'hidden',
+      background: highlight ? '#f6faf6' : FIG.paper,
+    }}>
+      <div style={{
+        padding: '10px 16px',
+        borderBottom: `1px solid ${highlight ? FIG.good : FIG.rule}33`,
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        background: highlight ? '#eaf1eb' : FIG.paperAlt,
+      }}>
+        <span style={{
+          fontFamily: FIG.sans, fontSize: 11, letterSpacing: 1.4,
+          textTransform: 'uppercase', fontWeight: 700,
+          color: highlight ? FIG.good : FIG.inkSoft,
+        }}>{label}</span>
+        <span style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
+          <span style={{ fontSize: 11, color: FIG.inkSoft }}>avg</span>
+          <Num value={avg.toFixed(2)} size={20} weight={600}
+               color={highlight ? FIG.good : FIG.ink} />
+        </span>
+      </div>
+
+      <div style={{ padding: '14px 16px' }}>
+        <div style={{ display: 'flex', gap: 8, justifyContent: 'center' }}>
+          {seq.map(s => {
+            const pt = PT_BY_ID[s.type];
+            const bad = s.score < 0.2;
+            return (
+              <div key={s.t} style={{
+                width: cellW,
+                border: `1px solid ${FIG.rule}`,
+                borderRadius: 8, overflow: 'hidden',
+                background: FIG.paper,
+              }}>
+                <div style={{
+                  height: 26, background: pt.soft,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
+                  borderBottom: `1px solid ${pt.color}33`,
+                }}>
+                  <PaperGlyph type={s.type} size={12} />
+                  <span style={{ fontFamily: FIG.serif, fontSize: 11.5, fontWeight: 600, color: pt.deep }}>
+                    {pt.label}
+                  </span>
+                </div>
+                <div style={{
+                  padding: '8px 8px 10px',
+                  display: 'flex', alignItems: 'center', gap: 10,
+                }}>
+                  <Avatar who={s.rev} size={28} />
+                  <div style={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
+                    <span style={{
+                      fontFamily: FIG.sans, fontSize: 10.5, fontWeight: 600,
+                      color: REV_BY_ID[s.rev].color, whiteSpace: 'nowrap',
+                      overflow: 'hidden', textOverflow: 'ellipsis',
+                    }}>{REV_BY_ID[s.rev].short}</span>
+                    <Num value={fmt(s.score)} size={16} weight={500} color={bad ? FIG.bad : FIG.ink}/>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+Object.assign(window, { FigCompareStacked, PolicyStrip });
+</script>
+
+<!-- fig-lag.jsx -->
+<script type="text/babel">
+function FigLagMarkets() {
+  const W = 880;
+
+  const markets = [
+    {
+      type: 'opt',
+      price: 0.10,
+      caption: 'Scarce supply — Stepinski is the only reviewer with a strong, low-cost match. The price stays low so the journal still uses him.',
+      bidders: [
+        { id: 'ben',  wtp: 0.46 },
+        { id: 'grad', wtp: 0.60 },
+        { id: 'four', wtp: 0.05 },
+      ],
+    },
+    {
+      type: 'ml',
+      price: 0.45,
+      caption: 'Stiff competition — ExpertLi is the obvious match. The price rises so the journal stays selective.',
+      bidders: [
+        { id: 'ben',  wtp: 0.90 },
+        { id: 'grad', wtp: -0.05 },
+        { id: 'four', wtp: 0.05 },
+      ],
+    },
+  ];
+
+  return (
+    <div style={{
+      width: W, padding: '32px 36px 28px', background: FIG.paper,
+      fontFamily: FIG.sans, color: FIG.ink,
+    }}>
+      <div style={{
+        display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 40,
+      }}>
+        {markets.map(m => <Market key={m.type} m={m} />)}
+      </div>
+
+      <div style={{
+        marginTop: 22, paddingTop: 16, borderTop: `1px solid ${FIG.rule}`,
+        display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 40,
+      }}>
+        {markets.map(m => (
+          <div key={m.type} style={{ fontSize: 11.5, color: FIG.inkSoft, lineHeight: 1.45 }}>
+            {m.caption}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function Market({ m }) {
+  const pt = PT_BY_ID[m.type];
+  const CW = 380, CH = 260;
+  const padL = 44, padR = 90, padT = 22, padB = 50;
+  const innerW = CW - padL - padR;
+  const innerH = CH - padT - padB;
+
+  const ymin = -0.2, ymax = 1.0;
+  const yToPx = v => padT + (1 - (v - ymin) / (ymax - ymin)) * innerH;
+  const ticks = [-0.2, 0, 0.25, 0.5, 0.75, 1.0];
+
+  const bidderSlots = m.bidders.length;
+  const bidderX = i => padL + innerW * ((i + 0.5) / bidderSlots);
+  const barHalfW = 14;
+
+  return (
+    <div>
+      <div style={{
+        display: 'flex', alignItems: 'baseline', gap: 10, marginBottom: 8,
+      }}>
+        <span style={{ width: 10, height: 10, borderRadius: 999, background: pt.color, alignSelf: 'center' }}/>
+        <span style={{ fontFamily: FIG.serif, fontSize: 15, fontWeight: 600, color: pt.deep }}>
+          {pt.label} market
+        </span>
+        <span style={{ marginLeft: 'auto', fontFamily: FIG.mono, fontSize: 10.5, color: FIG.inkFaint }}>
+          arrives p = {pt.prob}
+        </span>
+      </div>
+
+      <svg viewBox={`0 0 ${CW} ${CH}`} width={CW} height={CH}
+           style={{ display: 'block', background: FIG.paperAlt, borderRadius: 8 }}>
+        {ticks.map(v => (
+          <g key={v}>
+            <line x1={padL} y1={yToPx(v)} x2={CW - padR} y2={yToPx(v)}
+                  stroke={v === 0 ? FIG.rule : FIG.ruleSoft}
+                  strokeWidth={v === 0 ? 1.2 : 1}/>
+            <text x={padL - 6} y={yToPx(v) + 3} textAnchor="end"
+                  fontFamily={FIG.mono} fontSize={9.5} fill={FIG.inkFaint}>
+              {v.toFixed(2).replace(/^-0\./, '−.').replace(/^0\./, '.').replace(/^0$/, '0')}
+            </text>
+          </g>
+        ))}
+
+        <text x={14} y={padT + innerH / 2} textAnchor="middle"
+              fontFamily={FIG.sans} fontSize={10} fill={FIG.inkSoft}
+              letterSpacing={1.2}
+              transform={`rotate(-90 14 ${padT + innerH / 2})`}
+              style={{ textTransform: 'uppercase' }}>
+          willingness to pay
+        </text>
+
+        {m.bidders.map((b, i) => {
+          const r = REV_BY_ID[b.id];
+          const x = bidderX(i);
+          const y0 = yToPx(0);
+          const y1 = yToPx(b.wtp);
+          const accepts = b.wtp > m.price;
+          const top = Math.min(y0, y1), h = Math.abs(y1 - y0);
+          const fill = accepts ? r.soft : '#e4ddd1';
+          const stroke = accepts ? r.color : FIG.inkFaint;
+          return (
+            <g key={b.id}>
+              <rect x={x - barHalfW} y={top} width={barHalfW * 2} height={h}
+                    fill={fill} stroke={stroke} strokeWidth={1.4}
+                    rx={3}/>
+              <text x={x} y={CH - padB + 18} textAnchor="middle"
+                    fontFamily={FIG.serif} fontSize={12} fontWeight={500}
+                    fill={accepts ? r.color : FIG.inkFaint}
+                    style={{ fontVariantNumeric: 'tabular-nums' }}>
+                {fmt(b.wtp)}
+              </text>
+              <text x={x} y={CH - padB + 32} textAnchor="middle"
+                    fontFamily={FIG.sans} fontSize={10.5} fontWeight={600}
+                    fill={r.color}>
+                {r.short}
+              </text>
+              <foreignObject x={x - 12} y={y1 - 26} width={24} height={24}>
+                <Avatar who={b.id} size={24} />
+              </foreignObject>
+            </g>
+          );
+        })}
+
+        <g>
+          <line x1={padL} y1={yToPx(m.price)} x2={CW - padR + 16} y2={yToPx(m.price)}
+                stroke={pt.deep} strokeWidth={2} strokeDasharray="6 4"/>
+          <g transform={`translate(${CW - padR + 22}, ${yToPx(m.price)})`}>
+            <rect x={0} y={-14} width={64} height={28} rx={4}
+                  fill={pt.deep}/>
+            <text x={32} y={-1} textAnchor="middle"
+                  fontFamily={FIG.sans} fontSize={9} fill="#fff" letterSpacing={1}
+                  style={{ textTransform: 'uppercase' }}>
+              price ℓ
+            </text>
+            <text x={32} y={10} textAnchor="middle"
+                  fontFamily={FIG.serif} fontSize={12} fontWeight={600} fill="#fff"
+                  style={{ fontVariantNumeric: 'tabular-nums' }}>
+              {fmt(m.price)}
+            </text>
+          </g>
+        </g>
+
+        <text x={padL + 4} y={padT + 14}
+              fontFamily={FIG.sans} fontSize={9.5} fill={FIG.good}
+              letterSpacing={1.2} fontWeight={600} style={{ textTransform: 'uppercase' }}>
+          ↑ accepts
+        </text>
+        <text x={padL + 4} y={CH - padB - 6}
+              fontFamily={FIG.sans} fontSize={9.5} fill={FIG.inkFaint}
+              letterSpacing={1.2} fontWeight={600} style={{ textTransform: 'uppercase' }}>
+          ↓ rejects
+        </text>
+      </svg>
+    </div>
+  );
+}
+
+Object.assign(window, { FigLagMarkets });
+</script>
+
+<!-- fig-unfriendly.jsx -->
+<script type="text/babel">
+const UF_REVIEWERS = [
+  { id: 'exp', avatarKey: 'ben',  name: 'Expert',     desc: 'scores 1 on Good',  color: FIG.ben,  soft: FIG.benSoft  },
+  { id: 'b1',  avatarKey: 'grad', name: 'Beginner 1', desc: 'scores 0 always',   color: FIG.grad, soft: FIG.gradSoft },
+  { id: 'b2',  avatarKey: 'four', name: 'Beginner 2', desc: 'scores 0 always',   color: FIG.four, soft: FIG.fourSoft },
+];
+const UF_REV = Object.fromEntries(UF_REVIEWERS.map(r => [r.id, r]));
+
+const UF_PAPERS = [
+  { id: 'good', label: 'Good', prob: 0.1, color: FIG.opt, soft: FIG.optSoft, deep: FIG.optDeep },
+  { id: 'bad',  label: 'Bad',  prob: 0.9, color: FIG.ml,  soft: FIG.mlSoft,  deep: FIG.mlDeep  },
+];
+const UF_PT = Object.fromEntries(UF_PAPERS.map(p => [p.id, p]));
+
+const UF_SCORES = {
+  good: { exp: 1,    b1: 0, b2: 0 },
+  bad:  { exp: 0.01, b1: 0, b2: 0 },
+};
+
+const UF_GREEDY_SEQ = [
+  { t: 1, type: 'bad',  rev: 'exp', score: 0.01 },
+  { t: 2, type: 'good', rev: 'b1',  score: 0    },
+  { t: 3, type: 'bad',  rev: 'exp', score: 0.01 },
+  { t: 4, type: 'good', rev: 'b1',  score: 0    },
+  { t: 5, type: 'bad',  rev: 'exp', score: 0.01 },
+];
+
+const UF_OPTIMAL_SEQ = [
+  { t: 1, type: 'bad',  rev: 'b1',  score: 0 },
+  { t: 2, type: 'good', rev: 'exp', score: 1 },
+  { t: 3, type: 'bad',  rev: 'b1',  score: 0 },
+  { t: 4, type: 'good', rev: 'exp', score: 1 },
+  { t: 5, type: 'bad',  rev: 'b1',  score: 0 },
+];
+
+function ufFmt(v) {
+  if (v === 0)  return '0';
+  if (v === 1)  return '1';
+  return fmt(v);
+}
+
+function ufCellStyle(h, extra) {
+  return {
+    height: h,
+    display: 'flex', flexDirection: 'column', justifyContent: 'center',
+    boxSizing: 'border-box',
+    borderBottom: `1px solid ${FIG.rule}`,
+    ...extra,
+  };
+}
+
+function UfPaperGlyph({ type, size = 16 }) {
+  const pt = UF_PT[type];
+  return (
+    <svg viewBox="0 0 20 24" width={size * 0.85} height={size}>
+      <path d="M2 1 H14 L18 5 V22 Q18 23 17 23 H3 Q2 23 2 22 Z"
+            fill={FIG.paper} stroke={pt.deep} strokeWidth="1"/>
+      <path d="M14 1 V5 H18" fill="none" stroke={pt.deep} strokeWidth="1"/>
+      <line x1="5" y1="10" x2="14" y2="10" stroke={pt.deep} strokeWidth="0.9"/>
+      <line x1="5" y1="13" x2="14" y2="13" stroke={pt.deep} strokeWidth="0.9"/>
+      <line x1="5" y1="16" x2="11" y2="16" stroke={pt.deep} strokeWidth="0.9"/>
+    </svg>
+  );
+}
+
+function FigUnfriendlyCast() {
+  const cellH = 64;
+  const labelW = 160;
+  const colW   = 168;
+
+  return (
+    <div style={{
+      width: 880, padding: '32px 40px 32px',
+      background: FIG.paper, fontFamily: FIG.sans, color: FIG.ink,
+      display: 'flex', justifyContent: 'center',
+    }}>
+      <div style={{
+        display: 'inline-grid',
+        gridTemplateColumns: `${labelW}px repeat(3, ${colW}px)`,
+        borderTop:  `1px solid ${FIG.rule}`,
+        borderLeft: `1px solid ${FIG.rule}`,
+      }}>
+
+        <div style={ufCellStyle(cellH * 0.65, {
+          background: FIG.paper,
+          borderRight: `1px solid ${FIG.rule}`,
+        })} />
+
+        {UF_REVIEWERS.map(r => (
+          <div key={r.id} style={ufCellStyle(cellH * 0.65, {
+            background: FIG.paper,
+            borderRight: `1px solid ${FIG.rule}`,
+            flexDirection: 'column',
+            alignItems: 'center', justifyContent: 'center',
+            gap: 4, padding: '6px 12px',
+          })}>
+            <Avatar who={r.avatarKey} size={26} />
+            <span style={{
+              fontFamily: FIG.serif, fontSize: 13, fontWeight: 600, color: r.color,
+            }}>{r.name}</span>
+          </div>
+        ))}
+
+        {UF_PAPERS.map(pt => (
+          <React.Fragment key={pt.id}>
+            <div style={ufCellStyle(cellH, {
+              background: pt.soft,
+              borderRight: `1px solid ${FIG.rule}`,
+              borderTop:   `1px solid ${FIG.rule}`,
+              padding: '0 16px',
+            })}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <span style={{ width: 8, height: 8, borderRadius: 999, background: pt.color }} />
+                <span style={{
+                  fontFamily: FIG.serif, fontSize: 14, fontWeight: 600, color: pt.deep,
+                }}>{pt.label}</span>
+              </div>
+              <div style={{
+                fontSize: 10.5, color: pt.deep, opacity: 0.8, marginTop: 2,
+                fontFamily: FIG.mono,
+              }}>p = {pt.prob}</div>
+            </div>
+
+            {UF_REVIEWERS.map(r => {
+              const v = UF_SCORES[pt.id][r.id];
+              return (
+                <div key={r.id} style={ufCellStyle(cellH, {
+                  borderRight:  `1px solid ${FIG.rule}`,
+                  borderTop:    `1px solid ${FIG.rule}`,
+                  background:   heatTint(v, pt.color),
+                  alignItems:   'center',
+                  justifyContent: 'center',
+                })}>
+                  <Num
+                    value={ufFmt(v)}
+                    size={22} weight={500}
+                    color={v < 0 ? FIG.bad : FIG.ink}
+                  />
+                </div>
+              );
+            })}
+          </React.Fragment>
+        ))}
+
+      </div>
+    </div>
+  );
+}
+
+function UnfriendlyGantt({ seq, policyLabel, avg, d = 2 }) {
+  const W      = 880;
+  const cols   = seq.length;
+  const labelW = 150;
+  const gridW  = W - labelW;
+  const cellW  = gridW / cols;
+  const rowH   = 64;
+
+  const cells = UF_REVIEWERS.map(r => {
+    const row = Array(cols).fill(null);
+    seq.forEach((s, i) => {
+      if (s.rev === r.id) {
+        row[i] = { kind: 'assigned', s };
+        for (let k = 1; k < d; k++) {
+          if (i + k < cols) row[i + k] = { kind: 'busy', s };
+        }
+      }
+    });
+    return { r, row };
+  });
+
+  return (
+    <div style={{
+      width: W, padding: '32px 36px 30px',
+      background: FIG.paper, fontFamily: FIG.sans, color: FIG.ink,
+    }}>
+
+      <div style={{ display: 'flex', marginLeft: labelW, marginBottom: 6 }}>
+        {seq.map((s, i) => (
+          <div key={i} style={{
+            width: cellW, textAlign: 'center',
+            fontFamily: FIG.mono, fontSize: 10.5,
+            color: FIG.inkFaint, letterSpacing: 1,
+          }}>t = {s.t}</div>
+        ))}
+      </div>
+
+      <div style={{
+        display: 'flex', marginLeft: labelW, marginBottom: 14,
+        border: `1px solid ${FIG.rule}`, borderRadius: 8, overflow: 'hidden',
+      }}>
+        {seq.map((s, i) => {
+          const pt = UF_PT[s.type];
+          return (
+            <div key={i} style={{
+              width: cellW, height: 40,
+              background: pt.soft,
+              borderRight: i < cols - 1 ? `1px solid ${FIG.rule}` : 'none',
+              display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
+            }}>
+              <UfPaperGlyph type={s.type} size={14} />
+              <span style={{
+                fontFamily: FIG.serif, fontSize: 12.5, fontWeight: 600, color: pt.deep,
+              }}>{pt.label}</span>
+            </div>
+          );
+        })}
+      </div>
+
+      {cells.map(({ r, row }) => (
+        <div key={r.id} style={{
+          display: 'flex', alignItems: 'stretch', marginBottom: 4,
+        }}>
+          <div style={{
+            width: labelW, paddingRight: 14, flexShrink: 0,
+            display: 'flex', alignItems: 'center', gap: 10,
+          }}>
+            <Avatar who={r.avatarKey} size={32} />
+            <div>
+              <div style={{
+                fontFamily: FIG.serif, fontSize: 13, fontWeight: 600,
+                color: r.color, lineHeight: 1.1,
+              }}>{r.name}</div>
+              <div style={{ fontSize: 10, color: FIG.inkFaint, marginTop: 1 }}>
+                {r.desc}
+              </div>
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', flex: 1 }}>
+            {row.map((c, i) => {
+              if (!c) {
+                return (
+                  <div key={i} style={{
+                    width: cellW, height: rowH,
+                    borderRight: i < cols - 1 ? `1px dashed ${FIG.ruleSoft}` : 'none',
+                    background: 'transparent',
+                  }} />
+                );
+              }
+
+              const pt = UF_PT[c.s.type];
+
+              if (c.kind === 'assigned') {
+                return (
+                  <div key={i} style={{
+                    width: cellW, height: rowH,
+                    background: pt.soft,
+                    border: `1.5px solid ${pt.color}`,
+                    borderTopLeftRadius:    8,
+                    borderBottomLeftRadius: 8,
+                    borderTopRightRadius:    0,
+                    borderBottomRightRadius: 0,
+                    display: 'flex', alignItems: 'center',
+                    justifyContent: 'center',
+                    flexDirection: 'column', gap: 2,
+                  }}>
+                    <span style={{
+                      fontFamily: FIG.sans, fontSize: 9.5, color: pt.deep,
+                      letterSpacing: 0.6, textTransform: 'uppercase', fontWeight: 600,
+                    }}>review</span>
+                    <Num
+                      value={ufFmt(c.s.score)}
+                      size={22} weight={500}
+                      color={c.s.score < 0.2 ? FIG.bad : FIG.ink}
+                    />
+                  </div>
+                );
+              }
+
+              const isLast = i === cols - 1;
+              const nextIsBusy = !isLast && (row[i + 1]?.kind === 'busy' || row[i + 1]?.kind === 'assigned');
+              return (
+                <div key={i} style={{
+                  width: cellW, height: rowH,
+                  background: `repeating-linear-gradient(135deg, ${pt.soft} 0 8px, ${FIG.paper} 8px 14px)`,
+                  borderTop:    `1.5px solid ${pt.color}`,
+                  borderBottom: `1.5px solid ${pt.color}`,
+                  borderRight:  (!nextIsBusy) ? `1.5px solid ${pt.color}` : 'none',
+                  borderLeft:   'none',
+                  borderTopRightRadius:    8,
+                  borderBottomRightRadius: 8,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                }}>
+                  <span style={{
+                    fontFamily: FIG.sans, fontSize: 10,
+                    color: pt.deep, opacity: 0.7, letterSpacing: 0.6,
+                  }}>busy</span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      ))}
+
+      <div style={{
+        marginTop: 18, paddingTop: 14,
+        borderTop: `1px solid ${FIG.rule}`,
+        display: 'flex', alignItems: 'baseline',
+        justifyContent: 'space-between',
+      }}>
+        <span style={{
+          fontFamily: FIG.sans, fontSize: 10.5, letterSpacing: 1.2,
+          textTransform: 'uppercase', color: FIG.inkFaint, fontWeight: 600,
+        }}>{policyLabel}</span>
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: 10 }}>
+          <span style={{ fontFamily: FIG.sans, fontSize: 12, color: FIG.inkSoft }}>
+            average score
+          </span>
+          <Num
+            value={avg < 0.01 ? avg.toFixed(3) : avg.toFixed(2)}
+            size={28} weight={600}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function FigUnfriendlyGreedyGantt() {
+  return <UnfriendlyGantt seq={UF_GREEDY_SEQ} policyLabel="Greedy" avg={0.006} />;
+}
+function FigUnfriendlyOptimalGantt() {
+  return <UnfriendlyGantt seq={UF_OPTIMAL_SEQ} policyLabel="Optimal (Lag / Whittle)" avg={0.40} />;
+}
+
+Object.assign(window, {
+  FigUnfriendlyCast,
+  FigUnfriendlyGreedyGantt,
+  FigUnfriendlyOptimalGantt,
+});
+</script>
+
+<!-- main orchestration -->
+<script type="text/babel">
+const FIGS = {
+  'cast-matrix':   { Component: () => <FigCastMatrix/>,
+                     label: 'Figure 1',
+                     caption: 'The three reviewers and their similarity scores on the two paper types.' },
+  'greedy-gantt':  { Component: () => <FigGreedyGantt/>,
+                     label: 'Figure 2',
+                     caption: 'Greedy assignment on the five-paper run. Each reviewer is locked out for the next time step after an assignment. Average score 0.37.' },
+  'whittle-gantt': { Component: () => <FigWhittleGantt/>,
+                     label: 'Figure 3',
+                     caption: 'Whittle assignment on the same run. Stepinski takes the optimization papers; ExpertLi is reserved for ML. Average score 0.61.' },
+  'tmlr-load':     { Component: () => <img src="/assets/posts/reviewer-assignment/figures/load_varying_tmlr_filtered.png" style={{width:880, display:'block'}}/>,
+                     label: 'Figure 4',
+                     caption: 'Reward vs. load on TMLR journal similarity scores (R=30, V=10, k=3). Lag tracks OCC-UB across all loads; Greedy and ALG-SC-LP degrade at high load.' },
+  'iclr-load':     { Component: () => <img src="/assets/posts/reviewer-assignment/figures/load_varying_iclr_filtered.png" style={{width:880, display:'block'}}/>,
+                     label: 'Figure 5',
+                     caption: 'Reward vs. load on ICLR conference similarity scores (R=30, V=10, k=3). All non-random policies cluster near OCC-UB; the spread is narrower than on TMLR.' },
+  'specialist-load': { Component: () => <img src="/assets/posts/reviewer-assignment/figures/load_varying_specialist.png" style={{width:880, display:'block'}}/>,
+                     label: 'Figure 6',
+                     caption: 'Reward vs. load on the Specialist instance constructed from TMLR data (R=30, V=10, k=3). Greedy falls steeply with load; Lag and Whi stay near OCC-UB. KIID-UB is so loose it falls outside the y-axis range.' },
+  'unfriendly-cast':  { Component: () => <FigUnfriendlyCast/>,
+                     label: 'Figure 7a',
+                     caption: 'Score matrix for the unfriendly example. Expert scores 1 on Good papers and 0.01 on Bad; both Beginners score 0 on everything.' },
+  'unfriendly-greedy-gantt': { Component: () => <FigUnfriendlyGreedyGantt/>,
+                     label: 'Figure 7b',
+                     caption: 'Greedy on five arrivals (Bad, Good, Bad, Good, Bad). Expert gets consumed by every Bad paper; Good papers land on Beginners. Average score 0.006.' },
+  'unfriendly-optimal-gantt': { Component: () => <FigUnfriendlyOptimalGantt/>,
+                     label: 'Figure 7c',
+                     caption: 'Optimal (Lag / Whittle) on the same run. Beginners absorb Bad papers; Expert is free for every Good arrival. Average score 0.40.' },
+  'unfriendly-load': { Component: () => <img src="/assets/posts/reviewer-assignment/figures/load_varying_unfriendly.png" style={{width:880, display:'block'}}/>,
+                     label: 'Figure 7',
+                     caption: 'Reward vs. load on the Unfriendly synthetic instance (R=10, k=1). Good reviewers score 1.0 on matching papers and near-zero otherwise. Greedy wastes them on near-zero matches; Lag and Whi correctly reserve them.' },
+  'lowrank-load':  { Component: () => <img src="/assets/posts/reviewer-assignment/figures/load_varying_lowrank.png" style={{width:880, display:'block'}}/>,
+                     label: 'Figure 8',
+                     caption: 'Reward vs. load on the Low-rank synthetic instance (R=30, V=10, k=1, rank-1 score matrix). Whi assigns anti-greedily on low-quality arrivals and falls well below Greedy; Lag stays near OCC-UB.' },
+};
+
+(async () => {
+  const post = document.getElementById('post');
+  let md;
+  try {
+    const res = await fetch('/assets/posts/reviewer-assignment/reviewer-assignment.md');
+    md = await res.text();
+  } catch (e) {
+    post.innerHTML = '<p>Could not load the markdown source.</p>';
+    return;
+  }
+
+  marked.setOptions({ gfm: true, breaks: false });
+  let html = marked.parse(md);
+
+  post.innerHTML = html;
+
+  document.querySelectorAll('figure[data-fig]').forEach(el => {
+    const key = el.getAttribute('data-fig');
+    const fig = FIGS[key];
+    if (!fig) return;
+    el.innerHTML = `
+      <div class="fig-shell"></div>
+      <figcaption><span class="figlabel">${fig.label}</span>${fig.caption}</figcaption>
+    `;
+    const shell = el.querySelector('.fig-shell');
+    const root = document.createElement('div');
+    root.style.cssText = 'transform-origin:top left;';
+    shell.appendChild(root);
+    ReactDOM.createRoot(root).render(<fig.Component/>);
+
+    const fit = () => {
+      const target = shell.clientWidth;
+      const child = root.firstElementChild;
+      if (!child) return;
+      const natW = child.offsetWidth;
+      const natH = child.offsetHeight;
+      const scale = Math.min(1, target / natW);
+      root.style.transform = `scale(${scale})`;
+      root.style.width = natW + 'px';
+      shell.style.height = (natH * scale) + 'px';
+    };
+    requestAnimationFrame(() => {
+      fit();
+      setTimeout(fit, 200);
+      setTimeout(fit, 600);
+      window.addEventListener('resize', fit);
+    });
+  });
+
+  if (window.renderMathInElement) {
+    window.renderMathInElement(post, {
+      delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]
+    });
+  }
+})();
+</script>
+</body>
+</html>
+{% endraw %}
