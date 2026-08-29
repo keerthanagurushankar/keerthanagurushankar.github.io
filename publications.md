@@ -6,8 +6,11 @@ permalink: /publications/
 
 ## Working papers
 
-**Bandit Policies for Online Task Assignment with Reusable Resources**  
+**Maximizing Match Quality in Online Skill-Based Routing**  
 	Keerthana Gurushankar, Mor Harchol-Balter, Alan Scheller-Wolf [Preprint](/assets/papers/online_task_assigment_crmab.pdf)
+
+**Assigning Reviewers under Rising Load: A Whittle Index for Online Reviewer Assignment**  
+	Keerthana Gurushankar [Preprint](/assets/papers/whittle_reviewer_assignment.pdf)
 
 ## Publications
 
