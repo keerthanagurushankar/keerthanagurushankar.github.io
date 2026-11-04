@@ -3,5 +3,8 @@ header:
     url: /
   - title: "Publications"
     url: /publications/
+  - title: "Blog"
+    url: /blog/
   - title: "CV"
-    url: cv.pdf
+    url: /cv.pdf
+    cache_bust: true
