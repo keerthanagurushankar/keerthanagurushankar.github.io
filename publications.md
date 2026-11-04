@@ -4,10 +4,10 @@ title: "Publications"
 permalink: /publications/
 ---
 
-## Working papers
+## Submitted papers
 
-**Maximizing Match Quality in Online Skill-Based Routing**  
-	Keerthana Gurushankar, Alan Scheller-Wolf [Preprint](/assets/papers/online_task_assigment_crmab.pdf)
+**Lag: A Mean-Field Optimal Policy for Online Assignment with Reusable Resources**  
+	Keerthana Gurushankar [Preprint](https://arxiv.org/abs/2610.19038)
 
 **Assigning Reviewers under Rising Load: A Whittle Index for Online Reviewer Assignment**  
 	Keerthana Gurushankar [Preprint](/assets/papers/whittle_reviewer_assignment.pdf)
